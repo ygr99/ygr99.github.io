@@ -18,8 +18,8 @@ if (bbDom) {
   });
 }
 function getFirstList() {
-  bbDom.insertAdjacentHTML('afterend', load); var bbUrl = memos + "api/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit; fetch(bbUrl).then(res => res.json()).then(resdata => {
-    updateHTMl(resdata.data)
+  bbDom.insertAdjacentHTML('afterend', load); var bbUrl = memos + "api/v1/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit; fetch(bbUrl).then(res => res.json()).then(resdata => {
+    updateHTMl(resdata)
     var nowLength = resdata.data.length
     if (nowLength < limit) {
       document.querySelector("button.button-load").remove()
@@ -31,8 +31,8 @@ function getFirstList() {
   });
 }
 function getNextList() {
-  var bbUrl = memos + "api/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit + "&offset=" + offset; fetch(bbUrl).then(res => res.json()).then(resdata => {
-    nextDom = resdata.data
+  var bbUrl = memos + "api/v1/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit + "&offset=" + offset; fetch(bbUrl).then(res => res.json()).then(resdata => {
+    nextDom = resdata
     nextLength = nextDom.length
     page++
     offset = limit * (page - 1)
@@ -44,10 +44,10 @@ function getNextList() {
 }
 function meNums() {
   var bbLoad = document.querySelector('.bb-load')
-  var bbUrl = memos + "api/memo/stats?creatorId=" + bbMemo.creatorId
+  var bbUrl = memos + "api/v1/memo/stats?creatorId=" + bbMemo.creatorId
   fetch(bbUrl).then(res => res.json()).then(resdata => {
-    if (resdata.data) {
-      var allnums = '<div id="bb-footer"><p class="bb-allnums">共 ' + resdata.data.length + ' 条 </p><p class="bb-allpub"><a href="https://immmmm.com/bbs/" target="_blank">Memos Public</a></p></div>'
+    if (resdata) {
+      var allnums = '<div id="bb-footer"><p class="bb-allnums">共 ' + resdata.length + ' 条 </p><p class="bb-allpub"><a href="https://immmmm.com/bbs/" target="_blank">Memos Public</a></p></div>'
       bbLoad.insertAdjacentHTML('afterend', allnums);
     }
   })
@@ -87,7 +87,7 @@ function updateHTMl(data) {
     var hour = datetime.getHours();       //获取小时
     var minute = datetime.getMinutes();   //获取分钟
     var second = datetime.getSeconds();   //获取秒钟
-    
+
     var hour = String(datetime.getHours()).padStart(2, '0');       //获取小时，并在前面补充0
     var minute = String(datetime.getMinutes()).padStart(2, '0');   //获取分钟，并在前面补充0
     var second = String(datetime.getSeconds()).padStart(2, '0');   //获取秒钟，并在前面补充0
@@ -100,7 +100,7 @@ function updateHTMl(data) {
     Date.prototype.getWeek = function () {
       var firstDayOfYear = new Date(this.getFullYear(), 0, 1);
       var millisecsInDay = 86400000;
-      return Math.ceil((((this - firstDayOfYear) / millisecsInDay) + firstDayOfYear.getDay() + 1) / 7);
+      return Math.ceil((((this - firstDayOfYear) / millisecsInDay) + firstDayOfYear.getDay() + 7) / 7);
     };
     var weekOfYear = datetime.getWeek();
 

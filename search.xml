@@ -171,9 +171,13 @@
 <body>
 
     <div id="bber"></div>
+
+
+
     <script src="https://fastly.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://fastly.jsdelivr.net/gh/Tokinx/ViewImage/view-image.min.js"></script>
     <script src="https://fastly.jsdelivr.net/gh/Tokinx/Lately/lately.min.js"></script>
+
     <script type="text/javascript">
         var bbMemos = {
             memos: 'https://memos.wangguanjingji.fun/',//修改为自己部署 Memos 的网址，末尾有 / 斜杠
@@ -182,7 +186,7 @@
             domId: '',//默认为 <div id="bber"></div>
         }
     </script>
-    <!-- <script src="https://immmmm.com/bb-lmm-mk.js"></script> -->
+    <!-- <script src="https://immmmm.com/bb-lmm-mk.js?v=230811"></script> -->
     <script src="main.js"></script>
 
 
@@ -551,8 +555,8 @@ if (bbDom) {
   });
 }
 function getFirstList() {
-  bbDom.insertAdjacentHTML('afterend', load); var bbUrl = memos + "api/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit; fetch(bbUrl).then(res => res.json()).then(resdata => {
-    updateHTMl(resdata.data)
+  bbDom.insertAdjacentHTML('afterend', load); var bbUrl = memos + "api/v1/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit; fetch(bbUrl).then(res => res.json()).then(resdata => {
+    updateHTMl(resdata)
     var nowLength = resdata.data.length
     if (nowLength < limit) {
       document.querySelector("button.button-load").remove()
@@ -564,8 +568,8 @@ function getFirstList() {
   });
 }
 function getNextList() {
-  var bbUrl = memos + "api/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit + "&offset=" + offset; fetch(bbUrl).then(res => res.json()).then(resdata => {
-    nextDom = resdata.data
+  var bbUrl = memos + "api/v1/memo?creatorId=" + bbMemo.creatorId + "&rowStatus=NORMAL&limit=" + limit + "&offset=" + offset; fetch(bbUrl).then(res => res.json()).then(resdata => {
+    nextDom = resdata
     nextLength = nextDom.length
     page++
     offset = limit * (page - 1)
@@ -577,10 +581,10 @@ function getNextList() {
 }
 function meNums() {
   var bbLoad = document.querySelector('.bb-load')
-  var bbUrl = memos + "api/memo/stats?creatorId=" + bbMemo.creatorId
+  var bbUrl = memos + "api/v1/memo/stats?creatorId=" + bbMemo.creatorId
   fetch(bbUrl).then(res => res.json()).then(resdata => {
-    if (resdata.data) {
-      var allnums = '<div id="bb-footer"><p class="bb-allnums">共 ' + resdata.data.length + ' 条 </p><p class="bb-allpub"><a href="https://immmmm.com/bbs/" target="_blank">Memos Public</a></p></div>'
+    if (resdata) {
+      var allnums = '<div id="bb-footer"><p class="bb-allnums">共 ' + resdata.length + ' 条 </p><p class="bb-allpub"><a href="https://immmmm.com/bbs/" target="_blank">Memos Public</a></p></div>'
       bbLoad.insertAdjacentHTML('afterend', allnums);
     }
   })
@@ -620,7 +624,7 @@ function updateHTMl(data) {
     var hour = datetime.getHours();       //获取小时
     var minute = datetime.getMinutes();   //获取分钟
     var second = datetime.getSeconds();   //获取秒钟
-    
+
     var hour = String(datetime.getHours()).padStart(2, '0');       //获取小时，并在前面补充0
     var minute = String(datetime.getMinutes()).padStart(2, '0');   //获取分钟，并在前面补充0
     var second = String(datetime.getSeconds()).padStart(2, '0');   //获取秒钟，并在前面补充0
@@ -633,7 +637,7 @@ function updateHTMl(data) {
     Date.prototype.getWeek = function () {
       var firstDayOfYear = new Date(this.getFullYear(), 0, 1);
       var millisecsInDay = 86400000;
-      return Math.ceil((((this - firstDayOfYear) / millisecsInDay) + firstDayOfYear.getDay() + 1) / 7);
+      return Math.ceil((((this - firstDayOfYear) / millisecsInDay) + firstDayOfYear.getDay() + 7) / 7);
     };
     var weekOfYear = datetime.getWeek();
 
@@ -804,5 +808,592 @@ function bookShow(fetch_href, fetch_item) {
     <url>/lib/pace/pace.min.js</url>
     <content><![CDATA[/*! pace 1.0.2 */
 (function(){var a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X=[].slice,Y={}.hasOwnProperty,Z=function(a,b){function c(){this.constructor=a}for(var d in b)Y.call(b,d)&&(a[d]=b[d]);return c.prototype=b.prototype,a.prototype=new c,a.__super__=b.prototype,a},$=[].indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(b in this&&this[b]===a)return b;return-1};for(u={catchupTime:100,initialRate:.03,minTime:250,ghostTime:100,maxProgressPerFrame:20,easeFactor:1.25,startOnPageLoad:!0,restartOnPushState:!0,restartOnRequestAfter:500,target:"body",elements:{checkInterval:100,selectors:["body"]},eventLag:{minSamples:10,sampleCount:3,lagThreshold:3},ajax:{trackMethods:["GET"],trackWebSockets:!0,ignoreURLs:[]}},C=function(){var a;return null!=(a="undefined"!=typeof performance&&null!==performance&&"function"==typeof performance.now?performance.now():void 0)?a:+new Date},E=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame,t=window.cancelAnimationFrame||window.mozCancelAnimationFrame,null==E&&(E=function(a){return setTimeout(a,50)},t=function(a){return clearTimeout(a)}),G=function(a){var b,c;return b=C(),(c=function(){var d;return d=C()-b,d>=33?(b=C(),a(d,function(){return E(c)})):setTimeout(c,33-d)})()},F=function(){var a,b,c;return c=arguments[0],b=arguments[1],a=3<=arguments.length?X.call(arguments,2):[],"function"==typeof c[b]?c[b].apply(c,a):c[b]},v=function(){var a,b,c,d,e,f,g;for(b=arguments[0],d=2<=arguments.length?X.call(arguments,1):[],f=0,g=d.length;g>f;f++)if(c=d[f])for(a in c)Y.call(c,a)&&(e=c[a],null!=b[a]&&"object"==typeof b[a]&&null!=e&&"object"==typeof e?v(b[a],e):b[a]=e);return b},q=function(a){var b,c,d,e,f;for(c=b=0,e=0,f=a.length;f>e;e++)d=a[e],c+=Math.abs(d),b++;return c/b},x=function(a,b){var c,d,e;if(null==a&&(a="options"),null==b&&(b=!0),e=document.querySelector("[data-pace-"+a+"]")){if(c=e.getAttribute("data-pace-"+a),!b)return c;try{return JSON.parse(c)}catch(f){return d=f,"undefined"!=typeof console&&null!==console?console.error("Error parsing inline pace options",d):void 0}}},g=function(){function a(){}return a.prototype.on=function(a,b,c,d){var e;return null==d&&(d=!1),null==this.bindings&&(this.bindings={}),null==(e=this.bindings)[a]&&(e[a]=[]),this.bindings[a].push({handler:b,ctx:c,once:d})},a.prototype.once=function(a,b,c){return this.on(a,b,c,!0)},a.prototype.off=function(a,b){var c,d,e;if(null!=(null!=(d=this.bindings)?d[a]:void 0)){if(null==b)return delete this.bindings[a];for(c=0,e=[];c<this.bindings[a].length;)e.push(this.bindings[a][c].handler===b?this.bindings[a].splice(c,1):c++);return e}},a.prototype.trigger=function(){var a,b,c,d,e,f,g,h,i;if(c=arguments[0],a=2<=arguments.length?X.call(arguments,1):[],null!=(g=this.bindings)?g[c]:void 0){for(e=0,i=[];e<this.bindings[c].length;)h=this.bindings[c][e],d=h.handler,b=h.ctx,f=h.once,d.apply(null!=b?b:this,a),i.push(f?this.bindings[c].splice(e,1):e++);return i}},a}(),j=window.Pace||{},window.Pace=j,v(j,g.prototype),D=j.options=v({},u,window.paceOptions,x()),U=["ajax","document","eventLag","elements"],Q=0,S=U.length;S>Q;Q++)K=U[Q],D[K]===!0&&(D[K]=u[K]);i=function(a){function b(){return V=b.__super__.constructor.apply(this,arguments)}return Z(b,a),b}(Error),b=function(){function a(){this.progress=0}return a.prototype.getElement=function(){var a;if(null==this.el){if(a=document.querySelector(D.target),!a)throw new i;this.el=document.createElement("div"),this.el.className="pace pace-active",document.body.className=document.body.className.replace(/pace-done/g,""),document.body.className+=" pace-running",this.el.innerHTML='<div class="pace-progress">\n  <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>',null!=a.firstChild?a.insertBefore(this.el,a.firstChild):a.appendChild(this.el)}return this.el},a.prototype.finish=function(){var a;return a=this.getElement(),a.className=a.className.replace("pace-active",""),a.className+=" pace-inactive",document.body.className=document.body.className.replace("pace-running",""),document.body.className+=" pace-done"},a.prototype.update=function(a){return this.progress=a,this.render()},a.prototype.destroy=function(){try{this.getElement().parentNode.removeChild(this.getElement())}catch(a){i=a}return this.el=void 0},a.prototype.render=function(){var a,b,c,d,e,f,g;if(null==document.querySelector(D.target))return!1;for(a=this.getElement(),d="translate3d("+this.progress+"%, 0, 0)",g=["webkitTransform","msTransform","transform"],e=0,f=g.length;f>e;e++)b=g[e],a.children[0].style[b]=d;return(!this.lastRenderedProgress||this.lastRenderedProgress|0!==this.progress|0)&&(a.children[0].setAttribute("data-progress-text",""+(0|this.progress)+"%"),this.progress>=100?c="99":(c=this.progress<10?"0":"",c+=0|this.progress),a.children[0].setAttribute("data-progress",""+c)),this.lastRenderedProgress=this.progress},a.prototype.done=function(){return this.progress>=100},a}(),h=function(){function a(){this.bindings={}}return a.prototype.trigger=function(a,b){var c,d,e,f,g;if(null!=this.bindings[a]){for(f=this.bindings[a],g=[],d=0,e=f.length;e>d;d++)c=f[d],g.push(c.call(this,b));return g}},a.prototype.on=function(a,b){var c;return null==(c=this.bindings)[a]&&(c[a]=[]),this.bindings[a].push(b)},a}(),P=window.XMLHttpRequest,O=window.XDomainRequest,N=window.WebSocket,w=function(a,b){var c,d,e;e=[];for(d in b.prototype)try{e.push(null==a[d]&&"function"!=typeof b[d]?"function"==typeof Object.defineProperty?Object.defineProperty(a,d,{get:function(){return b.prototype[d]},configurable:!0,enumerable:!0}):a[d]=b.prototype[d]:void 0)}catch(f){c=f}return e},A=[],j.ignore=function(){var a,b,c;return b=arguments[0],a=2<=arguments.length?X.call(arguments,1):[],A.unshift("ignore"),c=b.apply(null,a),A.shift(),c},j.track=function(){var a,b,c;return b=arguments[0],a=2<=arguments.length?X.call(arguments,1):[],A.unshift("track"),c=b.apply(null,a),A.shift(),c},J=function(a){var b;if(null==a&&(a="GET"),"track"===A[0])return"force";if(!A.length&&D.ajax){if("socket"===a&&D.ajax.trackWebSockets)return!0;if(b=a.toUpperCase(),$.call(D.ajax.trackMethods,b)>=0)return!0}return!1},k=function(a){function b(){var a,c=this;b.__super__.constructor.apply(this,arguments),a=function(a){var b;return b=a.open,a.open=function(d,e){return J(d)&&c.trigger("request",{type:d,url:e,request:a}),b.apply(a,arguments)}},window.XMLHttpRequest=function(b){var c;return c=new P(b),a(c),c};try{w(window.XMLHttpRequest,P)}catch(d){}if(null!=O){window.XDomainRequest=function(){var b;return b=new O,a(b),b};try{w(window.XDomainRequest,O)}catch(d){}}if(null!=N&&D.ajax.trackWebSockets){window.WebSocket=function(a,b){var d;return d=null!=b?new N(a,b):new N(a),J("socket")&&c.trigger("request",{type:"socket",url:a,protocols:b,request:d}),d};try{w(window.WebSocket,N)}catch(d){}}}return Z(b,a),b}(h),R=null,y=function(){return null==R&&(R=new k),R},I=function(a){var b,c,d,e;for(e=D.ajax.ignoreURLs,c=0,d=e.length;d>c;c++)if(b=e[c],"string"==typeof b){if(-1!==a.indexOf(b))return!0}else if(b.test(a))return!0;return!1},y().on("request",function(b){var c,d,e,f,g;return f=b.type,e=b.request,g=b.url,I(g)?void 0:j.running||D.restartOnRequestAfter===!1&&"force"!==J(f)?void 0:(d=arguments,c=D.restartOnRequestAfter||0,"boolean"==typeof c&&(c=0),setTimeout(function(){var b,c,g,h,i,k;if(b="socket"===f?e.readyState<2:0<(h=e.readyState)&&4>h){for(j.restart(),i=j.sources,k=[],c=0,g=i.length;g>c;c++){if(K=i[c],K instanceof a){K.watch.apply(K,d);break}k.push(void 0)}return k}},c))}),a=function(){function a(){var a=this;this.elements=[],y().on("request",function(){return a.watch.apply(a,arguments)})}return a.prototype.watch=function(a){var b,c,d,e;return d=a.type,b=a.request,e=a.url,I(e)?void 0:(c="socket"===d?new n(b):new o(b),this.elements.push(c))},a}(),o=function(){function a(a){var b,c,d,e,f,g,h=this;if(this.progress=0,null!=window.ProgressEvent)for(c=null,a.addEventListener("progress",function(a){return h.progress=a.lengthComputable?100*a.loaded/a.total:h.progress+(100-h.progress)/2},!1),g=["load","abort","timeout","error"],d=0,e=g.length;e>d;d++)b=g[d],a.addEventListener(b,function(){return h.progress=100},!1);else f=a.onreadystatechange,a.onreadystatechange=function(){var b;return 0===(b=a.readyState)||4===b?h.progress=100:3===a.readyState&&(h.progress=50),"function"==typeof f?f.apply(null,arguments):void 0}}return a}(),n=function(){function a(a){var b,c,d,e,f=this;for(this.progress=0,e=["error","open"],c=0,d=e.length;d>c;c++)b=e[c],a.addEventListener(b,function(){return f.progress=100},!1)}return a}(),d=function(){function a(a){var b,c,d,f;for(null==a&&(a={}),this.elements=[],null==a.selectors&&(a.selectors=[]),f=a.selectors,c=0,d=f.length;d>c;c++)b=f[c],this.elements.push(new e(b))}return a}(),e=function(){function a(a){this.selector=a,this.progress=0,this.check()}return a.prototype.check=function(){var a=this;return document.querySelector(this.selector)?this.done():setTimeout(function(){return a.check()},D.elements.checkInterval)},a.prototype.done=function(){return this.progress=100},a}(),c=function(){function a(){var a,b,c=this;this.progress=null!=(b=this.states[document.readyState])?b:100,a=document.onreadystatechange,document.onreadystatechange=function(){return null!=c.states[document.readyState]&&(c.progress=c.states[document.readyState]),"function"==typeof a?a.apply(null,arguments):void 0}}return a.prototype.states={loading:0,interactive:50,complete:100},a}(),f=function(){function a(){var a,b,c,d,e,f=this;this.progress=0,a=0,e=[],d=0,c=C(),b=setInterval(function(){var g;return g=C()-c-50,c=C(),e.push(g),e.length>D.eventLag.sampleCount&&e.shift(),a=q(e),++d>=D.eventLag.minSamples&&a<D.eventLag.lagThreshold?(f.progress=100,clearInterval(b)):f.progress=100*(3/(a+3))},50)}return a}(),m=function(){function a(a){this.source=a,this.last=this.sinceLastUpdate=0,this.rate=D.initialRate,this.catchup=0,this.progress=this.lastProgress=0,null!=this.source&&(this.progress=F(this.source,"progress"))}return a.prototype.tick=function(a,b){var c;return null==b&&(b=F(this.source,"progress")),b>=100&&(this.done=!0),b===this.last?this.sinceLastUpdate+=a:(this.sinceLastUpdate&&(this.rate=(b-this.last)/this.sinceLastUpdate),this.catchup=(b-this.progress)/D.catchupTime,this.sinceLastUpdate=0,this.last=b),b>this.progress&&(this.progress+=this.catchup*a),c=1-Math.pow(this.progress/100,D.easeFactor),this.progress+=c*this.rate*a,this.progress=Math.min(this.lastProgress+D.maxProgressPerFrame,this.progress),this.progress=Math.max(0,this.progress),this.progress=Math.min(100,this.progress),this.lastProgress=this.progress,this.progress},a}(),L=null,H=null,r=null,M=null,p=null,s=null,j.running=!1,z=function(){return D.restartOnPushState?j.restart():void 0},null!=window.history.pushState&&(T=window.history.pushState,window.history.pushState=function(){return z(),T.apply(window.history,arguments)}),null!=window.history.replaceState&&(W=window.history.replaceState,window.history.replaceState=function(){return z(),W.apply(window.history,arguments)}),l={ajax:a,elements:d,document:c,eventLag:f},(B=function(){var a,c,d,e,f,g,h,i;for(j.sources=L=[],g=["ajax","elements","document","eventLag"],c=0,e=g.length;e>c;c++)a=g[c],D[a]!==!1&&L.push(new l[a](D[a]));for(i=null!=(h=D.extraSources)?h:[],d=0,f=i.length;f>d;d++)K=i[d],L.push(new K(D));return j.bar=r=new b,H=[],M=new m})(),j.stop=function(){return j.trigger("stop"),j.running=!1,r.destroy(),s=!0,null!=p&&("function"==typeof t&&t(p),p=null),B()},j.restart=function(){return j.trigger("restart"),j.stop(),j.start()},j.go=function(){var a;return j.running=!0,r.render(),a=C(),s=!1,p=G(function(b,c){var d,e,f,g,h,i,k,l,n,o,p,q,t,u,v,w;for(l=100-r.progress,e=p=0,f=!0,i=q=0,u=L.length;u>q;i=++q)for(K=L[i],o=null!=H[i]?H[i]:H[i]=[],h=null!=(w=K.elements)?w:[K],k=t=0,v=h.length;v>t;k=++t)g=h[k],n=null!=o[k]?o[k]:o[k]=new m(g),f&=n.done,n.done||(e++,p+=n.tick(b));return d=p/e,r.update(M.tick(b,d)),r.done()||f||s?(r.update(100),j.trigger("done"),setTimeout(function(){return r.finish(),j.running=!1,j.trigger("hide")},Math.max(D.ghostTime,Math.max(D.minTime-(C()-a),0)))):c()})},j.start=function(a){v(D,a),j.running=!0;try{r.render()}catch(b){i=b}return document.querySelector(".pace")?(j.trigger("start"),j.go()):setTimeout(j.start,50)},"function"==typeof define&&define.amd?define(["pace"],function(){return j}):"object"==typeof exports?module.exports=j:D.startOnPageLoad&&j.start()}).call(this);]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/memosweb/main1.js</url>
+    <content><![CDATA[/*
+Last Modified time : 20230926 11:00 by https://immmmm.com
+*/
+let bbMemo = {
+  memos: 'https://demo.usememos.com/',
+  limit: '10',
+  creatorId: '1',
+  domId: '#bber',
+  twiEnv:'',
+}
+if(typeof(bbMemos) !=="undefined"){
+  for(let key in bbMemos) {
+    if(bbMemos[key]){
+      bbMemo[key] = bbMemos[key];
+    }
+  }
+}
+
+function loadCssCode(code){
+  let style = document.createElement('style');
+  style.type = 'text/css';
+  style.rel = 'stylesheet';
+  style.appendChild(document.createTextNode(code));
+  let head = document.getElementsByTagName('head')[0];
+  head.appendChild(style);
+}
+const allCSS = `
+#bber{margin-top:1rem;width:auto!important;min-height:100vh;}
+.bb-timeline ul{margin:0;padding:0;}
+.bb-timeline ul li{margin-bottom:3rem;list-style-type:none;}
+.bb-timeline ul li .bb-cont ul li{margin-bottom:0;}
+.bb-timeline .bb-item,.bb-load button{border:1px solid #dcdcdc;border-radius:8px;box-shadow:3px 3px 5px rgba(0,0,0,.1);}
+.bb-timeline .bb-item{padding:.6rem 1rem .6rem;font-size:16px;}
+.bb-load button{padding:10px 30px;width:100%;background:0 0;letter-spacing:.8rem;font-style:italic;font-size:.8rem;}
+.bb-timeline .bb-info{position:relative;margin-top:.5rem;font-size:14px;}
+.bb-timeline .bb-info a{text-decoration:none;}
+.bb-timeline .datatime{font-size:15px;}
+.bb-timeline .bb-cont{overflow-x:hidden;overflow-y:scroll;margin-top:.5rem;max-height:50vh;}
+.bb-timeline .datacount{position:absolute;right:0;bottom:0;cursor:pointer;}
+.bb-timeline .datacount svg{margin:2px 5px;}
+.bb-timeline .bb-cont img[src*=emotion]{display:inline-block;width:auto;}
+.bb-timeline p{margin:0;margin:0;min-height:18px;color:#3b3d42;letter-spacing:1px;line-height:28px;}
+.bb-timeline pre{color:#aaa;}
+.bb-timeline pre p{display:inline-block;}
+.bb-timeline pre p:empty{display:none;}
+.bb-cont p{magin:0;}
+.bb-cont blockquote{position:relative;margin:0 0 0 1rem;padding:.25rem 2rem;border-left:0 none;font-family:KaiTi,STKaiti,STFangsong!important;}
+.bb-cont blockquote::before{position:absolute;top:5px;left:10px;content:'“';font-weight:700;font-size:28px;font-family:Georgia,serif;line-height:2rem;}
+.tag-span{color:#42b983;cursor:pointer;}
+#tag-list{font-size:1.8rem;}
+.bb-source a{margin:0 6px 0 0;padding:2px 8px;border-radius:5px;background:#3b3d42;color:#fafafa;font-weight:400;font-size:.9rem;}
+.bb-cont .img{border-radius:4px;cursor:pointer;}
+.bb-cont .img.square{width:180px;height:180px;object-fit:cover;}
+.resimg.grid{display:grid;box-sizing:border-box;margin:4px 0 0;width:calc(100%* 2 / 3);grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:4px;}
+.resimg.grid-2{width:80%;grid-template-columns:repeat(2,1fr);}
+.resimg.grid-4{width:calc(80% * 2 / 3);grid-template-columns:repeat(2,1fr);}
+.resimg.grid figure.gallery-thumbnail{position:relative;padding-top:100%;width:100%;height:0;cursor:zoom-in;}
+.resimg figure{max-height:50%;text-align:left;}
+.resimg figure img{max-height:50vh;}
+.resimg.grid figure,figcaption{margin:0!important;}
+.resimg.grid figure.gallery-thumbnail>img.thumbnail-image{position:absolute;top:0;left:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;}
+#bb-footer{margin:5rem auto 1rem;text-align:center;}
+#bb-footer p{margin:0 0 .6rem;}
+.bb-allnums{letter-spacing:2px;}
+.bb-allpub{text-decoration:none;font-style:italic;}
+.bb-timeline ul li::before{content:none;}
+
+/* db-card -------- start*/
+.db-card{border-bottom:1px solid #eaeaea;box-shadow: none;margin:-0.6rem -1rem .6rem;}
+.db-card-subject{display: flex;align-items:flex-start;line-height:1.6;padding:12px;position:relative;}
+.dark .db-card{background:#252627;border-bottom:1px solid #3b3d42;}
+.db-card-content {flex:1 1 auto;}
+.db-card-post {width: 96px;margin-right: 15px;display: flex;flex: 0 0 auto;}
+.db-card-title {margin-bottom: 5px;font-size: 18px;}
+.db-card-title a{text-decoration: none!important}
+.db-card-abstract,.db-card-comment{font-size:14px;overflow: hidden;max-height:3rem;}
+.db-card-cate{position: absolute;top:0;right:0;background:#f99b01;padding:1px 8px;font-size:small;font-style:italic;border-radius:0 8px 0 8px;text-transform:capitalize;}
+.db-card-post img{width: 96px!important;height: 96px!important;border-radius: 4px;-o-object-fit: cover;object-fit: cover;}
+
+.rating{display:flex;line-height:15px;}
+.rating-star{display:inline-block;width:75px;height:15px;background-image:url('data:image/png;background-repeat:no-repeat;    base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAAClCAYAAAAUAAAYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5xJREFUeNrs3T9rFEEcxvG7qEQIglaCICKkin9AUEtBKxU7wS61VlYivgWj70TtNFj5BqzE7qxEWwsxKIoYn4UtluFmbm8nczvzm+/BjxyuDwNzu3uXD0+46f7LC5PA45Hm+WTYw1x2LRDc0jzTXB+wqMlsaLPutz8fDFjYZHYauAz3NBvt83XNnyUWNpn1nVm3OsHmsb3EomazzZnVXKMPNcc0xzUnNKc0Rzv/77fms+Z7O3vt9b1eU7bZrNN68l5zcolX4ofmsuZXTdnmMvyi2dR86Bmcac62P6vKrnVubpc0bxYE32nOab45N8YqsvPeDfcD4SOav4HjprPuu+H5BTt9LXDMfNbdLPfT678Fx6vKupt1o/O8+R3pkOaJ5/iktqx7z/qp+aq5q/nY+fczmheaK03Gs7D5rLtZdzSvA6/Ebc2u55j57HQB0TzW7AzkjiKzny6+2hlKNE8juMNcFqKBaIZndRlCNBBNgmx7ZkE0fbLtZkE0EA1EM17WuQwhGogGooFoss6296y52cNO+J6HLJoPaFdbsvA9zGerIxrPh85eWYgGooFoDiQbuAxp0UA0EVmdWbRo+ma1WbRoIBqIZtzsnHdDWjQQDUQD0WSbde5ZS2UhmtqJJtSEiVkXooFoIJre2VATJmZdiKZ2ogk1YSb8oVMvDeUPnSAaiCaPJkzMuhANRAPRQDQpsqEmTMy6EI11oolpwkA0EA1EcyDZmCYMRAPR+LMxTZjqiCamCQPRQDQQzehNGIgGooFoIJpVZ2OaMBBN7USTqgkD0UA0EE3vbKomDERTO9GkasKYJJpUTRiIBqKBaEZvwkA0EA1EA9GkyKZqwkA01olmrCYMRAPRQDR9LkO+0QmiKbAJUyTRjNWEgWggGohm9CYMRAPRQDQQzZDsWE0YiMYC0eTYhIFoIJrKiCbHJgxEY4FocmzCZEs0OTZhIBqIpjKiybEJA9FANBANROPL5tiEgWhKIJoSmzAQDURjjGhKbMJANCUQTYlNmNGIpsQmDEQD0RgjmhKbMBANRAPR1Es0JTZhIJpciMZaEwaigWgKJBprTRiIJheisdaESUo01powEA1EUyDRWGvCQDQQDURjm2isNWEgmlURzWw2q4pZIBqIJkOiCVyGJpkFolkV0ejMMvel28mIRptl7ku3IRqIpjCimfNuaJpZIBqIBqIpm2ice5Z5ZonJupvVkMRu4JW4qXnrOWY++1+AAQBw9BJSCTeN9wAAAABJRU5ErkJggg==');overflow:hidden;}
+.allstar10{background-position:0 0;}
+.allstar9{background-position:0 -15px;}
+.allstar8{background-position:0 -30px;}
+.allstar7{background-position:0 -45px;}
+.allstar6{background-position:0 -60px;}
+.allstar5{background-position:0 -75px;}
+.allstar4{background-position:0 -90px;}
+.allstar3{background-position:0 -105px;}
+.allstar2{background-position:0 -120px;}
+.allstar1{background-position:0 -135px;}
+.allstar0{background-position:0 -150px;}
+.rating-average{display:inline-block;margin-left:10px;color:#777;font-size:13px;}
+.dark .post-preview{background:#3b3d42;}
+
+.video-wrapper{position:relative;padding-bottom:55%;width:100%;height:0;}
+.video-wrapper iframe{position:absolute;width:100%;height:100%;}
+.d-none{display:none!important;}
+.item-twikoo{margin:2rem 0 0 0;}
+.video-wrapper video{max-height:30vh;}
+#tag-list .tag-span{position:relative;display:inline-block;margin:2rem auto;padding:0 10px;border-radius:4px;background:rgba(0,0,0,.08);line-height:12px;}
+#tag-list .tag-span:before{position:absolute;top:-1rem;right:5px;width:5px;height:5px;content:'x';font-size:1rem;}
+.bb-tool{display:flex;justify-content:space-between;align-items:center;}
+.archive-btn,.reaction{display:inline-flex;}
+.archive-btn{opacity:.3;}
+#tag-list-all .tag-span{margin:.8rem 1rem 0 0;}
+
+.loader {position: relative;margin:3rem auto;width: 100px;}
+.loader::before {content: '';display: block;padding-top: 100%;}
+.circular {animation: rotate 2s linear infinite;height: 100%;transform-origin: center center;width: 100%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
+.path {stroke-dasharray: 1, 200;stroke-dashoffset: 0;animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;stroke-linecap: round;}
+@keyframes rotate {100% {transform: rotate(360deg);}}
+@keyframes dash {
+  0% {stroke-dasharray: 1, 200;stroke-dashoffset: 0;}
+  50% {stroke-dasharray: 89, 200;stroke-dashoffset: -35px;}
+  100% {stroke-dasharray: 89, 200;stroke-dashoffset: -124px;}
+}
+@keyframes color {
+  100%,0% {stroke: #d62d20;}40% {stroke: #0057e7;}66% {stroke: #008744;}80%,90% {stroke: #ffa700;}
+}
+
+.dark .bb-timeline .bb-load button,.dark .bb-timeline .bb-item{border:1px solid #3b3d42;}
+.dark .bb-timeline .bb-item p{color:#fafafa;}
+.dark .bb-timeline .bb-item p svg{fill:#fafafa;}
+.dark #tag-list .tag-span{background:rgba(238,238,238,.1);}
+`
+loadCssCode(allCSS);
+
+let limit = bbMemo.limit
+let memos = bbMemo.memos
+let memosOpenId
+let mePage = 1,offset = 0,nextLength = 0,nextDom='',apiV1 = '';
+let bbDom = document.querySelector(bbMemo.domId);
+let load = '<div class="bb-load"><button class="load-btn button-load">加载中……</button></div>'
+let loading = `<div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>`
+
+if(bbDom){
+  fetchStatus()
+}
+async function fetchStatus() {
+  let statusUrl = memos+"api/v1/ping";
+  let response = await fetch(statusUrl);
+  if (response.ok) {
+    apiV1 = 'v1/'
+  }
+  let memoOne = getQueryVariable("memo") || ''
+  if(memoOne){
+    getMemoOne(memoOne)
+  }else{
+    newApiV1(apiV1)
+  }
+}
+function getMemoOne(memoOne){
+  let OneDom = `<iframe style="width:100%;height:100vh;" src="${memoOne}" frameBorder="0"></iframe>`
+  let ContDom = document.querySelector('.content') || document.querySelector(bbMemo.domId);
+  ContDom.innerHTML = OneDom
+}
+function getQueryVariable(variable){
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if(pair[0] == variable){return pair[1];}
+  }
+  return(false);
+}
+
+function newApiV1(apiV1){
+  getFirstList(apiV1) //首次加载数据
+  meNums(apiV1) //加载总数
+  bbDom.innerHTML = loading
+  let btn = document.querySelector("button.button-load");
+  btn.addEventListener("click", function () {
+    btn.textContent= '加载中……';
+    if(bbMemo.twiEnv){
+      updateTiwkoo(nextDom)
+    }else{
+      updateHTMl(nextDom)
+    }
+    if(nextLength < limit){ //返回数据条数小于限制条数，隐藏
+      document.querySelector("button.button-load").remove()
+      return
+    }
+    getNextList(apiV1)
+  });
+}
+
+function getFirstList(apiV1){
+  bbDom.insertAdjacentHTML('afterend', load);
+  let bbUrl = memos+"api/"+apiV1+"memo?creatorId="+bbMemo.creatorId+"&rowStatus=NORMAL&limit="+limit;
+  fetch(bbUrl).then(res => res.json()).then( resdata =>{
+    if(bbMemo.twiEnv){
+      updateTiwkoo(resdata)
+    }else{
+      updateHTMl(resdata)
+    }
+    let nowLength = resdata.length
+    if(nowLength < limit){ //返回数据条数小于 limit 则直接移除“加载更多”按钮，中断预加载
+      document.querySelector("button.button-load").remove()
+      return
+    }
+    mePage++
+    offset = limit*(mePage-1)
+    getNextList(apiV1)
+  });
+}
+// 获取评论数量
+function updateTiwkoo(data) {
+  let twiID = data.map((item) => memos + "m/" + item.id);
+  twikoo.getCommentsCount({
+    envId: bbMemo.twiEnv,
+    urls: twiID,
+    includeReply: true
+  }).then(function (res) {
+    updateCount(res)
+  }).catch(function (err) {
+    console.error(err);
+  });
+  function updateCount(res) {
+    let twiCount = res.map((item) => {
+      return Object.assign({},{'count':item.count})
+    });
+
+    let bbTwikoo = data.map((item,index) => {
+      return {...item, ...twiCount[index]};
+    });
+    updateHTMl(bbTwikoo)
+  }
+}
+//预加载下一页数据
+function getNextList(apiV1){
+  let bbUrl = memos+"api/"+apiV1+"memo?creatorId="+bbMemo.creatorId+"&rowStatus=NORMAL&limit="+limit+"&offset="+offset;
+  fetch(bbUrl).then(res => res.json()).then( resdata =>{
+    nextLength = resdata.length
+    mePage++
+    offset = limit*(mePage-1)
+    if(nextLength < 1){ //返回数据条数为 0 ，隐藏
+      document.querySelector("button.button-load").remove()
+      return
+    }
+  })
+}
+//加载总 Memos 数
+function meNums(apiV1){
+  let bbLoad = document.querySelector('.bb-load')
+  let bbUrl = memos+"api/"+apiV1+"memo/stats?creatorId="+bbMemo.creatorId
+  fetch(bbUrl).then(res => res.json()).then( resdata =>{
+    if(resdata){
+      let allnums = `<div id="bb-footer"><p class="bb-allnums">共 ${resdata.length} 条 </p><p class="bb-allpub"><a href="https://immmmm.com/bbs/" target="_blank">Memos Public</a></p></div>`
+      bbLoad.insertAdjacentHTML('afterend', allnums);
+    }
+  })
+}
+// 插入 html
+async function updateHTMl(data){
+  //console.log(data)
+  let result="",resultAll="";
+  const TAG_REG = /#([^#\s!.,;:?"'()]+)(?= )/g ///#([^/\s#]+?) /g
+  , IMG_REG = /\!\[(.*?)\]\((.*?)\)/g
+  , LINK_REG = /\[(.*?)\]\((.*?)\)/g
+  , DEODB_LINK_REG = /(https:\/\/(www|movie|book)\.douban\.com\/(game|subject)\/[0-9]+\/).*?/g
+  , BILIBILI_REG = /<a.*?href="https:\/\/www\.bilibili\.com\/video\/((av[\d]{1,10})|(BV([\w]{10})))\/?".*?>.*<\/a>/g
+  , NETEASE_MUSIC_REG = /<a.*?href="https:\/\/music\.163\.com\/.*id=([0-9]+)".*?>.*<\/a>/g
+  , QQMUSIC_REG = /<a.*?href="https\:\/\/y\.qq\.com\/.*(\/[0-9a-zA-Z]+)(\.html)?".*?>.*?<\/a>/g
+  , QQVIDEO_REG = /<a.*?href="https:\/\/v\.qq\.com\/.*\/([a-z|A-Z|0-9]+)\.html".*?>.*<\/a>/g
+  , YOUKU_REG = /<a.*?href="https:\/\/v\.youku\.com\/.*\/id_([a-z|A-Z|0-9|==]+)\.html".*?>.*<\/a>/g
+  , YOUTUBE_REG = /<a.*?href="https:\/\/www\.youtube\.com\/watch\?v\=([a-z|A-Z|0-9]{11})\".*?>.*<\/a>/g;
+  marked.setOptions({
+    breaks: false,
+    smartypants: false,
+    langPrefix: 'language-',
+    headerIds: false,
+    mangle: false
+  });
+
+  for(let i=0;i < data.length;i++){
+      let bbID = data[i].id
+      let memoUrl = memos + "m/" + bbID
+      let bbCont = data[i].content + ' '
+      let bbContREG = ''
+
+      bbContREG += bbCont.replace(TAG_REG, "")
+        .replace(IMG_REG, "")
+        .replace(DEODB_LINK_REG, '')
+        .replace(LINK_REG, '<a class="primary" href="$2" target="_blank">$1</a>')
+
+      // NeoDB
+      let neodbArr = bbCont.match(DEODB_LINK_REG);
+      let neodbDom = '';
+      if(neodbArr){
+        for(let k=0;k < neodbArr.length;k++){
+          neodbDom += await fetchNeoDB(neodbArr[k])
+        }
+      }
+
+      //标签
+      let tagArr = bbCont.match(TAG_REG);
+      let bbContTag = '';
+      if (tagArr) {
+        bbContTag = tagArr.map(t=>{
+          return `<span class='tag-span' onclick='getTagNow(this)'>${t}</span> `;
+        }).join('');
+        bbContREG =  bbContTag + bbContREG.trim()
+      }
+
+      bbContREG = marked.parse(bbContREG)
+        .replace(BILIBILI_REG, "<div class='video-wrapper'><iframe src='//www.bilibili.com/blackboard/html5mobileplayer.html?bvid=$1&as_wide=1&high_quality=1&danmaku=0' scrolling='no' border='0' frameborder='no' framespacing='0' allowfullscreen='true'></iframe></div>")
+        .replace(NETEASE_MUSIC_REG, "<meting-js auto='https://music.163.com/#/song?id=$1'></meting-js>")
+        .replace(QQMUSIC_REG, "<meting-js auto='https://y.qq.com/n/yqq/song$1.html'></meting-js>")
+        .replace(QQVIDEO_REG, "<div class='video-wrapper'><iframe src='//v.qq.com/iframe/player.html?vid=$1' allowFullScreen='true' frameborder='no'></iframe></div>")
+        .replace(YOUKU_REG, "<div class='video-wrapper'><iframe src='https://player.youku.com/embed/$1' frameborder=0 'allowfullscreen'></iframe></div>")
+        .replace(YOUTUBE_REG, "<div class='video-wrapper'><iframe src='https://www.youtube.com/embed/$1' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen title='YouTube Video'></iframe></div>")
+
+      //解析 content 内 md 格式图片
+      let IMG_ARR = data[i].content.match(IMG_REG) || '',IMG_ARR_Grid='';
+      if(IMG_ARR){
+        let IMG_ARR_Length = IMG_ARR.length,IMG_ARR_Url = '';
+        if(IMG_ARR_Length !== 1){let IMG_ARR_Grid = " grid grid-"+IMG_ARR_Length}
+        IMG_ARR.forEach(item => {
+            let imgSrc = item.replace(/!\[.*?\]\((.*?)\)/g,'$1')
+            IMG_ARR_Url += `<figure class="gallery-thumbnail"><img class="img thumbnail-image" loading="lazy" decoding="async" src="${imgSrc}"/></figure>`
+        });
+        bbContREG += `<div class="resimg${IMG_ARR_Grid}">${IMG_ARR_Url}</div>`
+      }
+
+      //解析内置资源文件
+      if(data[i].resourceList && data[i].resourceList.length > 0){
+        let resourceList = data[i].resourceList;
+        let imgUrl='',resUrl='',resImgLength = 0;
+        for(let j=0;j < resourceList.length;j++){
+          let restype = resourceList[j].type.slice(0,5)
+          let resexlink = resourceList[j].externalLink
+          let resLink = resexlink ? resexlink :
+                        memos+'o/r/'+resourceList[j].id+'/'+(resourceList[j].publicId || resourceList[j].filename)
+
+          if(restype == 'image'){
+            imgUrl += `<figure class="gallery-thumbnail"><img class="img thumbnail-image" src="${resLink}"/></figure>`
+            resImgLength = resImgLength + 1
+          }else if(restype == 'video'){
+            imgUrl += `<div class="video-wrapper"><video controls><source src="${resLink}" type="video/mp4"></video></div>`
+          }else{
+            resUrl += `<a target="_blank" rel="noreferrer" href="${resLink}">${resourceList[j].filename}</a>`
+          }
+        }
+        if(imgUrl){
+          let resImgGrid = ""
+          if(resImgLength !== 1){resImgGrid = "grid grid-"+resImgLength}
+          bbContREG += `<div class="resimg ${resImgGrid}">${imgUrl}</div>`
+        }
+        if(resUrl){
+          bbContREG += `<p class="bb-source">${resUrl}</p>`
+        }
+      }
+      let memosIdNow = memos.replace(/https\:\/\/(.*\.)?(.*)\..*/,'id-$2-')
+      let emojiReaction = `<emoji-reaction theme="system" class="reaction" endpoint="https://api-emaction.immmmm.com" reacttargetid="${memosIdNow+'memo-'+bbID}" style="line-height:normal;display:inline-flex;"></emoji-reaction>`
+      let datacountDOM = ""
+      if(bbMemo.twiEnv){
+        datacountDOM = `<div class="datacount" data-twienv="${bbMemo.twiEnv}" data-id="${bbID}" onclick="loadTwikoo(this)"> ${data[i].count} 条评论 </div>`
+      }
+      memosOpenIdNow = window.localStorage && window.localStorage.getItem("memos-access-token")
+
+      result +=  `<li class="memo-${bbID}">
+        <div class="bb-item">
+
+        ${neodbDom}
+          <div class="bb-tool">
+            ${emojiReaction}
+            ${ !memosOpenIdNow ? '':
+              `<span class="archive-btn" onclick="archiveMemo(this)" data-id="${bbID}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-img"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></span>`
+            }
+          </div>
+          <div class="bb-cont">
+            ${bbContREG}
+          </div>
+          <div class="bb-info">
+            <a href="${memoUrl}" target="_blank"><span class="datatime">${new Date(data[i].createdTs * 1000).toLocaleString()}</span></a>
+            ${datacountDOM}
+          </div>
+          <div class="item-twikoo twikoo-${bbID} d-none">
+            <div id="twikoo-${bbID}"></div>
+          </div>
+        </div>
+      </li>`
+  }// end for
+  let bbBefore = "<section class='bb-timeline'><ul class='bb-list-ul'>"
+  let bbAfter = "</ul></section>"
+  resultAll = bbBefore + result + bbAfter
+  let loaderDom = document.querySelector('.loader') || ""
+  if(loaderDom) loaderDom.remove()
+  bbDom.insertAdjacentHTML('beforeend', resultAll);
+  if(document.querySelector('button.button-load')) document.querySelector('button.button-load').textContent = '加载更多';
+
+  //图片灯箱
+  window.ViewImage && ViewImage.init('.bb-cont img')
+  //相对时间
+  window.Lately && Lately.init({ target: '.datatime' });
+}
+
+// Fetch NeoDB
+async function fetchNeoDB(url){
+  let urlNow = "https://api-neodb.immmmm.com/?url="+url
+  let response = await fetch(urlNow);
+  let dbFetch = await response.json();
+  let neodbDom = `<div class="db-card">
+    <div class="db-card-subject">
+        <div class="db-card-post"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${dbFetch.cover_image_url}"></div>
+        <div class="db-card-content">
+            <div class="db-card-title"><a href="${url}" class="cute" target="_blank" rel="noreferrer">${dbFetch.title}</a></div>
+            <div class="rating"><span class="allstardark"><span class="allstarlight" style="width:${dbFetch.rating*10}%"></span></span><span class="rating_nums">${dbFetch.rating}</span></div>
+            <div class="db-card-abstract">${dbFetch.brief}</div>
+        </div>
+        <div class="db-card-cate">${dbFetch.category}</div>
+    </div>
+  </div>`
+  return neodbDom
+}
+
+//获取指定 Tag 评论
+function getTagNow(e){
+  let tagHtml = `<div id="tag-list"></div>`
+  bbDom.insertAdjacentHTML('beforebegin', tagHtml);
+  let tagName = e.innerHTML.replace('#','')
+  let domClass = document.getElementById("tag-list")
+  window.scrollTo({
+    top: domClass.offsetTop - 20,
+    behavior: "smooth"
+  });
+  let tagHtmlNow = `<span class='tag-span' onclick='reLoad()'>${e.innerHTML}</span>`
+  document.querySelector('#tag-list').innerHTML = tagHtmlNow
+  let bbUrl = memos+"api/"+apiV1+"memo?creatorId="+bbMemo.creatorId+"&tag="+tagName+"&limit=20";
+  fetchMemoDOM(bbUrl)
+}
+
+//随机一条 Memos 需手动添加 html 如：<span onclick="randomMemo()">回忆</span>
+function randomMemo(){
+  let randomUrl1 = memos+"api/"+apiV1+"memo/stats?creatorId="+bbMemo.creatorId;
+  fetch(randomUrl1).then(res => res.json()).then( resdata =>{
+    let randomNum = Math.floor(Math.random() * (resdata.length)) + 1;
+    let randomUrl2 = memos+"api/"+apiV1+"memo?creatorId="+bbMemo.creatorId+"&rowStatus=NORMAL&limit=1&offset="+randomNum
+    fetchMemoDOM(randomUrl2)
+  })
+}
+
+//搜索 Memo ，基于 v1 api，需手动添加 html 如：<span onclick="serchMemo()">搜索</span>
+function serchMemo(){
+  let serchText = prompt('搜点啥？','');
+  let tagHtmlNow = `<span class='tag-span' onclick='reLoad()'>#${serchText}</span>`
+  let tagHtml = `<div id="tag-list">${tagHtmlNow}</div>`
+  bbDom.insertAdjacentHTML('beforebegin', tagHtml);
+  let bbUrl = memos+"api/"+apiV1+"memo?creatorId="+bbMemo.creatorId+"&content="+serchText+"&limit=20";
+  fetchMemoDOM(bbUrl)
+}
+
+function fetchMemoDOM(bbUrl){
+  bbDom.innerHTML = loading
+  fetch(bbUrl).then(res => res.json()).then( resdata =>{
+    if(resdata.length > 0){
+      document.querySelector(bbMemo.domId).innerHTML = ""
+      if(document.querySelector("button.button-load")) document.querySelector("button.button-load").remove()
+      if(bbMemo.twiEnv){
+        updateTiwkoo(resdata)
+      }else{
+        updateHTMl(resdata)
+      }
+    }else{
+      alert("404 -_-!")
+      setTimeout(reLoad(), 1000);
+    }
+  })
+}
+
+function reLoad(){
+  let urlThis = location.protocol + '//' + location.host + location.pathname;
+  window.location.replace(urlThis)
+}
+
+//设置 openid Memos OpenId
+function setOpenID(){
+  let memosOpenIdNow = window.localStorage && window.localStorage.getItem("memos-access-token") || ''
+  let memosOpenIdSet = prompt('请输入 Memos OpenId ',memosOpenIdNow);
+  if(memosOpenIdSet !== null ) window.localStorage && window.localStorage.setItem("memos-access-token", memosOpenIdSet);
+}
+
+//归档 Memo
+function archiveMemo(e) {
+  let memoId = e.getAttribute("data-id")
+  let memosOpenIdNow = window.localStorage && window.localStorage.getItem("memos-access-token");
+  if(memosOpenIdNow && memosOpenIdNow !== 'undefined' && memoId){
+    let isOk = confirm("确认归档？");
+    if(isOk){
+      let memoUrl = memos+"api/"+apiV1+"memo/"+memoId+"?openId="+memosOpenIdNow
+      let memoBody = {id:memoId,rowStatus:"ARCHIVED"};
+      fetch(memoUrl, {
+        method: 'PATCH',
+        body: JSON.stringify(memoBody),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function(res) {
+        if (res.ok) {
+          reLoad()
+        }
+      })
+    }
+  }else{
+    setOpenID()
+  }
+}
+
+//显示标签列表，需配合 cloudflare worker 食用
+function showTaglist(e){
+  let bbUrl = e.getAttribute("data-api")
+  let tagListDom = ""
+  fetch(bbUrl).then(res => res.json()).then( resdata =>{
+    for(let i=0;i < resdata.length;i++){
+      tagListDom += `<span class="tag-span" onclick='getTagNow(this)'>#${resdata[i]}</span>`
+    }
+    let tagHtml = `<div id="tag-list-all">${tagListDom}</div>`
+    bbDom.insertAdjacentHTML('beforebegin', tagHtml);
+  })
+}
+
+//前端加载 Twikoo 评论
+function loadTwikoo(e) {
+  let memoEnv = e.getAttribute("data-twienv")
+  let memoId = e.getAttribute("data-id")
+  let twikooDom = document.querySelector('.twikoo-'+memoId);
+  if (twikooDom.classList.contains('d-none')) {
+    document.querySelectorAll('.item-twikoo').forEach((item) => {item.classList.add('d-none');})
+    if(!document.getElementById("twikoo")){
+      twikooDom.classList.remove('d-none');
+      let domClass = document.getElementsByClassName('memo-'+memoId)
+      window.scrollTo({
+        top: domClass[0].offsetTop - 30,
+        behavior: "smooth"
+      });
+      twikoo.init({
+        envId: memoEnv,
+        el: '#twikoo-' + memoId,
+        path: bbMemo.memos+'m/'+ memoId,
+      });
+      setTimeout(function(){
+        document.getElementById("twikoo").id='twikoo-' + memoId;
+      }, 600);
+      let memoOne = location.pathname+'?memo='+bbMemos.memos+'m/'+memoId
+      history.pushState({memoOne: memoOne, title: document.title}, document.title, memoOne)
+    }
+  }else{
+    twikooDom.classList.add('d-none');
+  }
+}
+//前端加载 Artalk 评论
+function loadArtalk(e) {
+  let memoEnv = e.getAttribute("data-artenv")
+  let memoSite= e.getAttribute("data-artsite")
+  let memoId = e.getAttribute("data-id")
+  let ArtalkDom = document.querySelector('.artalk-'+memoId);
+  let ArtalkDom_ID = document.querySelector('#artalk-'+memoId);
+  if(!ArtalkDom_ID){
+    ArtalkDom.insertAdjacentHTML('afterbegin', '<div id="artalk-'+ memoId +'"></div>');
+  }
+  if (ArtalkDom.classList.contains('d-none')) {
+    document.querySelectorAll('.item-artalk').forEach((item) => {item.classList.add('d-none');})
+    if(!document.getElementById("artalk")){
+      ArtalkDom.classList.remove('d-none');
+      let domClass = document.getElementsByClassName('memo-'+memoId)
+      window.scrollTo({
+        top: domClass[0].offsetTop - 30,
+        behavior: "smooth"
+      });
+      Artalk.init({
+        el: '#artalk-' + memoId,
+        pageKey: '/m/' + memoId,
+        pageTitle: '',
+        site: memoSite,
+        server: memoEnv
+      });
+    }
+  }else{
+    ArtalkDom.classList.add('d-none');
+    ArtalkDom_ID.remove();
+  }
+}]]></content>
   </entry>
 </search>
