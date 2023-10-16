@@ -6,7 +6,7 @@
   <link href="https://wangguanjingji.github.io/atom.xml" rel="self"/>
   
   <link href="https://wangguanjingji.github.io/"/>
-  <updated>2023-07-13T14:43:51.702Z</updated>
+  <updated>2023-10-16T14:55:02.186Z</updated>
   <id>https://wangguanjingji.github.io/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>调整博客代码样式</title>
+    <link href="https://wangguanjingji.github.io/posts/2023-10-16-22-43.html"/>
+    <id>https://wangguanjingji.github.io/posts/2023-10-16-22-43.html</id>
+    <published>2023-10-16T14:43:33.000Z</published>
+    <updated>2023-10-16T14:55:02.186Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;博客的代码样式有点难看，调整一下&lt;br&gt;&lt;a href=&quot;https://theme-next.js.org/highlight/&quot;&gt;https://theme-next.js.org/highlight/&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://wangguanjingji.github.io/categories/Hexo/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>开始继续学习前端</title>
@@ -55,7 +72,7 @@
     <link href="https://wangguanjingji.github.io/posts/2002-01-01-00-00.html"/>
     <id>https://wangguanjingji.github.io/posts/2002-01-01-00-00.html</id>
     <published>2001-12-31T16:00:00.000Z</published>
-    <updated>2023-10-16T14:27:22.781Z</updated>
+    <updated>2023-10-16T14:54:18.070Z</updated>
     
     
       
@@ -66,15 +83,13 @@
 &lt;!-- more --&gt;
 &lt;ul&gt;
 &lt;li&gt;2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化&lt;/li&gt;
-&lt;li&gt;2023-05-05 博客 </summary>
+&lt;li&gt;2023-05-05 菜单栏</summary>
       
     
     
     
     <category term="Hexo" scheme="https://wangguanjingji.github.io/categories/Hexo/"/>
     
-    
-    <category term="Hexo" scheme="https://wangguanjingji.github.io/tags/Hexo/"/>
     
   </entry>
   

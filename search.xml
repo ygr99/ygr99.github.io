@@ -9,15 +9,13 @@
 <!-- more -->
 <ul>
 <li>2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</li>
-<li>2023-05-05 博客  memu 其他页面 添加 导航区域</li>
+<li>2023-05-05 菜单栏 其他页面 添加 导航区域</li>
+<li>2023年10月16日周一43周 调整代码样式</li>
 </ul>
 ]]></content>
       <categories>
         <category>Hexo</category>
       </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
   </entry>
   <entry>
     <title>Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</title>
@@ -42,6 +40,17 @@
 
 <p>开始努力学习喽！</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>调整博客代码样式</title>
+    <url>/posts/2023-10-16-22-43.html</url>
+    <content><![CDATA[<p>博客的代码样式有点难看，调整一下<br><a href="https://theme-next.js.org/highlight/">https://theme-next.js.org/highlight/</a></p>
+<span id="more"></span>
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Memos随记 | 喜欢上一个人<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;bber&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
   </entry>
   <entry>
     <title>关于</title>
