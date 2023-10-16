@@ -12,6 +12,9 @@
 <li>2023-05-05 博客  memu 其他页面 添加 导航区域</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
       <tags>
         <tag>Hexo</tag>
       </tags>
@@ -65,9 +68,9 @@
   <title>about</title>
 </head>
 <body>
-  
+
   <div style="text-align: center;">
-    <strong>一个人丶99</strong>
+    <strong>我是 一个人丶99</strong>
   </div>
 
 
