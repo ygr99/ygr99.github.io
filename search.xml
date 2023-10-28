@@ -11,6 +11,7 @@
 <li>2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</li>
 <li>2023-05-05 菜单栏 其他页面 添加 导航区域</li>
 <li>2023年10月16日周一43周 调整代码样式</li>
+<li>2023年10月28日周六44周 调整样式：blockquote</li>
 </ul>
 ]]></content>
       <categories>
@@ -51,6 +52,21 @@
       <categories>
         <category>Hexo</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Java 后端学习之旅</title>
+    <url>/posts/2023-10-28-16-02.html</url>
+    <content><![CDATA[<blockquote>
+<p>大四 💪</p>
+</blockquote>
+<ul>
+<li>2023-10-23周一44周<ul>
+<li>鱼皮用户中心项目</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+]]></content>
   </entry>
   <entry>
     <title>关于</title>
