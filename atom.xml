@@ -3,11 +3,11 @@
   <title>一个人丶99</title>
   
   
-  <link href="https://wangguanjingji.github.io/atom.xml" rel="self"/>
+  <link href="https://ygr99.github.io/atom.xml" rel="self"/>
   
-  <link href="https://wangguanjingji.github.io/"/>
-  <updated>2023-10-28T08:05:15.082Z</updated>
-  <id>https://wangguanjingji.github.io/</id>
+  <link href="https://ygr99.github.io/"/>
+  <updated>2023-11-03T09:51:53.117Z</updated>
+  <id>https://ygr99.github.io/</id>
   
   <author>
     <name>一个人丶99</name>
@@ -17,9 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hexo 主题 solitude(孤独)</title>
+    <link href="https://ygr99.github.io/posts/2023-11-03-undefined.html"/>
+    <id>https://ygr99.github.io/posts/2023-11-03-undefined.html</id>
+    <published>2023-11-03T05:57:19.000Z</published>
+    <updated>2023-11-03T09:51:53.117Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;搭建-Hexo-博客&quot;&gt;&lt;a href=&quot;#搭建-Hexo-博客&quot; class=&quot;headerlink&quot; title=&quot;搭建 Hexo 博客&quot;&gt;&lt;/a&gt;搭建 Hexo 博客&lt;/h1&gt;&lt;p&gt;如果你还没有 Hexo 博客，请按照  &lt;a href=&quot;https://h</summary>
+      
+    
+    
+    
+    <category term="Hexo" scheme="https://ygr99.github.io/categories/Hexo/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Java 后端学习之旅</title>
-    <link href="https://wangguanjingji.github.io/posts/2023-10-28-16-02.html"/>
-    <id>https://wangguanjingji.github.io/posts/2023-10-28-16-02.html</id>
+    <link href="https://ygr99.github.io/posts/2023-10-28-16-02.html"/>
+    <id>https://ygr99.github.io/posts/2023-10-28-16-02.html</id>
     <published>2023-10-28T08:02:58.000Z</published>
     <updated>2023-10-28T08:05:15.082Z</updated>
     
@@ -41,8 +61,8 @@
   
   <entry>
     <title>调整博客代码样式</title>
-    <link href="https://wangguanjingji.github.io/posts/2023-10-16-22-43.html"/>
-    <id>https://wangguanjingji.github.io/posts/2023-10-16-22-43.html</id>
+    <link href="https://ygr99.github.io/posts/2023-10-16-22-43.html"/>
+    <id>https://ygr99.github.io/posts/2023-10-16-22-43.html</id>
     <published>2023-10-16T14:43:33.000Z</published>
     <updated>2023-10-16T14:55:02.186Z</updated>
     
@@ -51,15 +71,15 @@
     
     
     
-    <category term="Hexo" scheme="https://wangguanjingji.github.io/categories/Hexo/"/>
+    <category term="Hexo" scheme="https://ygr99.github.io/categories/Hexo/"/>
     
     
   </entry>
   
   <entry>
     <title>开始继续学习前端</title>
-    <link href="https://wangguanjingji.github.io/posts/2023-07-13-22-39.html"/>
-    <id>https://wangguanjingji.github.io/posts/2023-07-13-22-39.html</id>
+    <link href="https://ygr99.github.io/posts/2023-07-13-22-39.html"/>
+    <id>https://ygr99.github.io/posts/2023-07-13-22-39.html</id>
     <published>2023-07-13T14:39:18.000Z</published>
     <updated>2023-07-13T14:43:51.702Z</updated>
     
@@ -73,8 +93,8 @@
   
   <entry>
     <title>Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</title>
-    <link href="https://wangguanjingji.github.io/posts/2023-04-30-08-08.html"/>
-    <id>https://wangguanjingji.github.io/posts/2023-04-30-08-08.html</id>
+    <link href="https://ygr99.github.io/posts/2023-04-30-08-08.html"/>
+    <id>https://ygr99.github.io/posts/2023-04-30-08-08.html</id>
     <published>2023-04-30T00:08:16.000Z</published>
     <updated>2023-07-13T14:47:35.463Z</updated>
     
@@ -83,17 +103,17 @@
     
     
     
-    <category term="Hexo" scheme="https://wangguanjingji.github.io/categories/Hexo/"/>
+    <category term="Hexo" scheme="https://ygr99.github.io/categories/Hexo/"/>
     
     
-    <category term="Hexo" scheme="https://wangguanjingji.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://ygr99.github.io/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 博客编年史</title>
-    <link href="https://wangguanjingji.github.io/posts/2002-01-01-00-00.html"/>
-    <id>https://wangguanjingji.github.io/posts/2002-01-01-00-00.html</id>
+    <link href="https://ygr99.github.io/posts/2002-01-01-00-00.html"/>
+    <id>https://ygr99.github.io/posts/2002-01-01-00-00.html</id>
     <published>2001-12-31T16:00:00.000Z</published>
     <updated>2023-10-28T08:01:47.001Z</updated>
     
@@ -111,7 +131,7 @@
     
     
     
-    <category term="Hexo" scheme="https://wangguanjingji.github.io/categories/Hexo/"/>
+    <category term="Hexo" scheme="https://ygr99.github.io/categories/Hexo/"/>
     
     
   </entry>
