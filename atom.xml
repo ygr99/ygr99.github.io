@@ -26,7 +26,10 @@
     
       
       
-    <summary type="html">&lt;h1 id=&quot;搭建-Hexo-博客&quot;&gt;&lt;a href=&quot;#搭建-Hexo-博客&quot; class=&quot;headerlink&quot; title=&quot;搭建 Hexo 博客&quot;&gt;&lt;/a&gt;搭建 Hexo 博客&lt;/h1&gt;&lt;p&gt;如果你还没有 Hexo 博客，请按照  &lt;a href=&quot;https://h</summary>
+    <summary type="html">&lt;h1&gt;搭建 Hexo 博客&lt;/h1&gt;
+&lt;p&gt;如果你还没有 Hexo 博客，请按照  &lt;a href=&quot;https://hexo.io/zh-cn/docs/&quot;&gt;Hexo 官方文档&lt;/a&gt;进行安装、建站。&lt;/p&gt;
+&lt;h1&gt;安裝主题 solitude&lt;/h1&gt;
+&lt;h2 id=&quot;Gi</summary>
       
     
     
@@ -48,7 +51,8 @@
 &lt;p&gt;大四 💪&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;2023-10-23周一44周&lt;ul&gt;
+&lt;li&gt;2023-10-23周一44周
+&lt;ul&gt;
 &lt;li&gt;鱼皮用户中心项目&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -67,7 +71,8 @@
     <updated>2023-10-16T14:55:02.186Z</updated>
     
     
-    <summary type="html">&lt;p&gt;博客的代码样式有点难看，调整一下&lt;br&gt;&lt;a href=&quot;https://theme-next.js.org/highlight/&quot;&gt;https://theme-next.js.org/highlight/&lt;/a&gt;&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;博客的代码样式有点难看，调整一下&lt;br&gt;
+&lt;a href=&quot;https://theme-next.js.org/highlight/&quot;&gt;https://theme-next.js.org/highlight/&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -121,12 +126,11 @@
       
       
     <summary type="html">&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
-
 &lt;p&gt;Hexo 博客编年史&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;ul&gt;
 &lt;li&gt;2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化&lt;/li&gt;
-&lt;li&gt;2023-05-05 菜单栏</summary>
+&lt;li&gt;2023-05-05 菜单栏 </summary>
       
     
     
