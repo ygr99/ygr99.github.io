@@ -59,14 +59,25 @@
   <entry>
     <title>Hexo 博客编年史</title>
     <url>/posts/2002-01-01-00-00.html</url>
-    <content><![CDATA[<span id="more"></span>
-<p>Hexo 博客编年史</p>
-<!-- more -->
+    <content><![CDATA[<p>在《博客编年史》中，我将记录博客的每一次更新和变化，包括界面设计、内容策略等等等。</p>
+<span id="more"></span>
+<p>2024年04月28日周日17周</p>
 <ul>
-<li>2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</li>
-<li>2023-05-05 菜单栏 其他页面 添加 导航区域</li>
-<li>2023年10月16日周一43周 调整代码样式</li>
-<li>2023年10月28日周六44周 调整样式：blockquote</li>
+<li>
+<p>优化首页文章列表的阴影效果，并调整其在页面中的内边距设置</p>
+</li>
+<li>
+<p>2023-04-30 Hexo 博客 Next 主题+ GitHub 重新部署搭建个人博客 + 优化</p>
+</li>
+<li>
+<p>2023-05-05 菜单栏 其他页面 添加 导航区域</p>
+</li>
+<li>
+<p>2023年10月16日周一43周 调整代码样式</p>
+</li>
+<li>
+<p>2023年10月28日周六44周 调整样式：blockquote</p>
+</li>
 </ul>
 ]]></content>
       <categories>
