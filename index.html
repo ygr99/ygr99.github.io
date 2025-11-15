@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>heynote blog</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="loading-spinner">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="navbar">
+      <a href="./calendar.html" target="_blank" class="nav-link">日历图</a>
+      <a href="./timeline.html" target="_blank" class="nav-link">时间线</a>
+      <a href="./sentence.html" target="_blank" class="nav-link">句子集</a>
+    </div>
+
+    <br />
+
+    <div id="random-sentence" class="summary"></div>
+
+    <h3 class="heatmap-title">
+      <a
+        href="#"
+        id="random-diary"
+        target="_blank"
+        style="text-decoration: none"
+        >热力图</a
+      >
+      <select id="year-select">
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+      </select>
+    </h3>
+    <div class="heatmap-wrapper">
+      <div class="week-labels">
+        <!-- 星期标签会动态插入到这里 -->
+      </div>
+      <div class="relitu-container" id="relitu-container">
+        <!-- 热力图会动态生成在这里 -->
+      </div>
+    </div>
+
+    <div class="summary">
+      <a href="count.html" target="_blank">写写停停</a>
+      <span id="diary-count">0</span> 篇日记
+      <span id="note-count">0</span> 篇笔记
+      <span id="total-word-count">0</span> 字
+    </div>
+
+    <!-- <a href="#" id="random-article" target="_blank">随机文章</a> -->
+
+    <!-- 添加笔记列表部分 -->
+    <h3>
+      <a href="#" id="random-note" target="_blank" style="text-decoration: none"
+        >笔记列表</a
+      >
+    </h3>
+    <div id="note-list">
+      <!-- 这里会动态生成笔记列表 -->
+    </div>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="script.js"></script>
+    <script
+      type="text/javascript"
+      src="https://myhkw.cn/player/js/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      id="myhk"
+      src="https://myhkw.cn/api/player/165613536537"
+      key="165613536537"
+      m="1"
+    ></script>
+
+    <!-- 樱花特效 -->
+    <!-- <script src="https://files.blog.lmb520.cn/assets/js/yinghua.js"></script> -->
+  </body>
+</html>

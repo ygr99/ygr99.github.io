@@ -1,0 +1,281 @@
+/* 自定义样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    /* 默认情况下，为左右两边增加20px的padding */
+    background: linear-gradient(to bottom, #e6f3ff, #f5f9ff);
+}
+
+/* 导航栏容器样式 */
+.navbar {
+    background-color: #a0c4ff;
+    /* 浅蓝色背景 */
+    overflow: hidden;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;
+    /* 可选：添加圆角 */
+}
+
+/* 导航链接样式 */
+.nav-link {
+    color: white;
+    /* 白色文本 */
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    /* 可选：添加圆角 */
+}
+
+/* 鼠标悬停时的样式 */
+.nav-link:hover {
+    background-color: #80aaff;
+    /* 稍微深一点的蓝色 */
+}
+
+/* 当前选中的链接样式 */
+.nav-link.active {
+    background-color: #6495ed;
+    /* 更深的蓝色 */
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0 15px;
+        /* 在手机端，为左右两边增加15px的padding */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0 10px;
+        /* 在更小的屏幕上，为左右两边增加10px的padding */
+    }
+}
+
+.heatmap-title {
+    /* margin-top: 100px; */
+    /* 默认情况下，h1 元素有 100px 的上边距 */
+}
+
+@media (max-width: 768px) {
+    .heatmap-title {
+        /* margin-top: 50px; */
+        /* 在手机端，h1 元素的上边距减少到 50px */
+    }
+}
+
+@media (max-width: 480px) {
+    .heatmap-title {
+        /* margin-top: 10px; */
+        /* 在更小的屏幕上，h1 元素的上边距为 0 */
+    }
+}
+
+a {
+    color: #1E81F8;
+}
+
+
+/* 热力图包裹容器样式 */
+.heatmap-wrapper {
+    display: flex;
+    /* 使用 flex 布局 */
+    align-items: flex-start;
+    /* 顶部对齐 */
+    position: relative;
+}
+
+/* 星期标签容器样式 */
+.week-labels {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    /* 垂直排列 */
+    justify-content: space-between;
+    /* 均匀分布 */
+    height: calc(7 * 18px + 6 * 5px);
+    /* 热力图的高度 */
+    margin-right: 10px;
+    /* 星期标签和热力图之间的间距 */
+    padding-top: 9px;
+    /* 调整顶部间距，使标签与行对齐 */
+}
+
+/* 星期标签样式 */
+.week-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    text-align: right;
+    /* 文本右对齐 */
+    height: 18px;
+    /* 每个标签的高度与热力图的行高一致 */
+    line-height: 18px;
+    /* 确保文本垂直居中 */
+}
+
+/* 热力图容器样式 */
+.relitu-container {
+    display: flex;
+    overflow-x: auto;
+    /* 添加横向滚动条 */
+    white-space: nowrap;
+    /* 防止内容换行 */
+    margin: 1em 0;
+    position: relative;
+}
+
+/* 热力图列样式 */
+.grid-column {
+    display: grid;
+    grid-template-rows: repeat(7, 18px);
+    /* 每列固定 7 行 */
+    gap: 5px;
+    margin-right: 5px;
+    /* 列之间的间距 */
+}
+
+/* 热力图格子样式 */
+.grid-item {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 18px;
+    position: relative;
+}
+
+/* 热力图格子信息样式 */
+.item-info {
+    font-size: 10px;
+    height: 100%;
+    width: 18px;
+    /* 固定格子宽度 */
+    background-color: #E9ECEF;
+    border-radius: .25rem;
+}
+
+/* 摘要样式 */
+.summary {
+    font-size: 16px;
+    color: #333;
+}
+
+.summary span {
+    font-weight: bold;
+    /* color: #1E81F8; */
+    color: #9fc6f5;
+}
+
+/* 笔记列表样式 */
+#note-list {
+    margin-top: 20px;
+}
+
+.note-year {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #1E81F8;
+}
+
+.note-month {
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #1E81F8;
+}
+
+.note-item {
+    margin-bottom: 10px;
+}
+
+.note-item a {
+    color: #1E81F8;
+    text-decoration: none;
+}
+
+.note-item a:hover {
+    text-decoration: underline;
+}
+
+/* 自定义 Tooltip 主题样式 */
+.tippy-content {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.tippy-content a {
+    text-decoration: none;
+}
+
+.tippy-content a:hover {
+    color: #ff9900;
+}
+
+.tippy-arrow {
+    color: #fff;
+}
+
+.tippy-tooltip[data-placement^='top']>.tippy-arrow::before {
+    border-top-color: #fff;
+}
+
+.tippy-tooltip[data-placement^='bottom']>.tippy-arrow::before {
+    border-bottom-color: #fff;
+}
+
+.tippy-tooltip[data-placement^='left']>.tippy-arrow::before {
+    border-left-color: #fff;
+}
+
+.tippy-tooltip[data-placement^='right']>.tippy-arrow::before {
+    border-right-color: #fff;
+}
+
+/* 加载动画样式 */
+#loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.grid-item.invisible {
+    visibility: hidden;
+    pointer-events: none;
+    /* 防止用户与隐形格子交互 */
+}

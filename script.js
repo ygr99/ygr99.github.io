@@ -1,0 +1,446 @@
+// 定义全局变量 posts
+let posts = [];
+
+// 字符串转换为时间格式
+function parseDate(str) {
+  const date = new Date(str);
+  // 将 UTC 时间转换为 CST 时间
+  return new Date(date.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+}
+
+// 获取本周的星期天作为开始时间
+function getThisSunday(date) {
+  const cstDate = new Date(
+    date.toLocaleString("en-US", { timeZone: "Asia/Shanghai" })
+  );
+  const dayOfWeek = cstDate.getDay();
+  const daysToSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+  const thisSunday = new Date(cstDate);
+  thisSunday.setDate(cstDate.getDate() + daysToSunday);
+  return thisSunday;
+}
+
+// 获取当前年份
+const currentYear = new Date().getFullYear();
+
+// 获取年份选择框
+const yearSelect = document.getElementById("year-select");
+
+// 获取任意年份的第一周的起始日期
+function getFirstWeekStartDate(selectedYear) {
+  const firstDayOfYear = new Date(selectedYear, 0, 1); // 当年的1月1日
+  const dayOfWeek = firstDayOfYear.getDay(); // 获取星期几（0=周日，1=周一，...，6=周六）
+
+  // 如果1月1日不是周一，则第一周的起始日期是上一年的最后几天
+  const firstWeekStartDate = new Date(firstDayOfYear);
+  firstWeekStartDate.setDate(
+    firstDayOfYear.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)
+  );
+
+  return firstWeekStartDate;
+}
+
+// 获取任意年份的最后一周的结束日期
+function getLastWeekEndDate(selectedYear) {
+  const lastDayOfYear = new Date(selectedYear, 11, 31); // 当年的12月31日
+  const dayOfWeek = lastDayOfYear.getDay(); // 获取星期几（0=周日，1=周一，...，6=周六）
+
+  // 如果12月31日不是周日，则最后一周的结束日期是下一年的前几天
+  const lastWeekEndDate = new Date(lastDayOfYear);
+  lastWeekEndDate.setDate(
+    lastDayOfYear.getDate() + (dayOfWeek === 0 ? 0 : 7 - dayOfWeek + 1)
+  );
+
+  return lastWeekEndDate;
+}
+
+// 根据选择的年份计算周数和日期范围
+function getStartDate(selectedYear) {
+  const today = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" })
+  );
+  const startOfYear = new Date(
+    new Date(selectedYear, 0, 1).toLocaleString("en-US", {
+      timeZone: "Asia/Shanghai",
+    })
+  );
+  const endOfYear = new Date(
+    new Date(selectedYear, 11, 31).toLocaleString("en-US", {
+      timeZone: "Asia/Shanghai",
+    })
+  );
+
+  // 计算当前年份的总周数
+  const dayOfYear = Math.ceil((today - startOfYear) / (1000 * 60 * 60 * 24));
+  const weekNumber = Math.floor((dayOfYear - 1) / 7) + 1;
+
+  let weeks, days;
+  if (selectedYear === 2024) {
+    weeks = weekNumber - 35 + 1; // 2024年从第35周开始
+  } else if (selectedYear === 2025) {
+    // 2025年的第一周从2024年12月30日开始
+    const firstDayOf2025 = new Date(2025, 0, 1);
+    const dayOfWeek = firstDayOf2025.getDay(); // 获取2025年1月1日是星期几
+    const firstWeekStartDate = new Date(firstDayOf2025);
+    firstWeekStartDate.setDate(
+      firstDayOf2025.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)
+    );
+    weeks = weekNumber;
+    days = weeks * 7 - 1;
+    const startDate = new Date(firstWeekStartDate);
+    return startDate;
+  } else {
+    weeks = weekNumber; // 其他年份从第1周开始
+  }
+  days = weeks * 7 - 1;
+
+  const sunday = getThisSunday(today);
+  const startDate = new Date(sunday);
+  startDate.setDate(sunday.getDate() - days);
+
+  return startDate;
+}
+
+// 构建基础数据
+function dateBuild(data, startDate) {
+  const dateCounts = {};
+  // 标准化json中的时间格式
+  data.forEach((item) => {
+    const dateStr = parseDate(item.date).toISOString().split("T")[0];
+    dateCounts[dateStr] = (dateCounts[dateStr] || 0) + 1;
+  });
+
+  const result = [];
+  const sunday = getThisSunday(new Date());
+
+  // 生成从 startDate 到 sunday 的数据数组
+  for (
+    let currentDate = new Date(
+      sunday.toLocaleString("en-US", { timeZone: "Asia/Shanghai" })
+    );
+    currentDate >=
+    new Date(startDate.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+    currentDate.setDate(currentDate.getDate() - 1)
+  ) {
+    const dateStr = currentDate.toISOString().split("T")[0];
+    const count = dateCounts[dateStr] || 0;
+    // 通过时间去json数据获取当天的文章
+    const dataContent = data.filter(
+      (item) => parseDate(item.date).toISOString().split("T")[0] === dateStr
+    );
+
+    // 统计文章字符总数
+    let sumOfWordcounts = 0;
+    dataContent.forEach((item) => {
+      sumOfWordcounts += item.word_count;
+    });
+
+    // 放进数组中
+    result.push({
+      date: dateStr,
+      count: count,
+      data: dataContent,
+      wordcount: sumOfWordcounts,
+    });
+  }
+
+  return result;
+}
+
+// 动态生成星期标签
+function generateWeekLabels() {
+  const weekLabels = ["一", "三", "五", "日"];
+  const weekLabelsContainer = document.querySelector(".week-labels");
+  weekLabelsContainer.innerHTML = ""; // 清空现有内容
+
+  // 生成新的星期标签
+  weekLabels.forEach((labelText) => {
+    const label = document.createElement("div");
+    label.className = "week-label";
+    label.innerText = labelText;
+    weekLabelsContainer.appendChild(label);
+  });
+}
+
+// 填充热力图
+function fillHeatmap(data, startDate) {
+  let articles = dateBuild(data, startDate);
+  const gridContainer = document.getElementById("relitu-container");
+  gridContainer.innerHTML = ""; // 清空现有内容
+
+  // 获取选择的年份
+  const selectedYear = parseInt(yearSelect.value);
+
+  // 动态计算第一周的起始日期和最后一周的结束日期
+  const firstWeekStartDate = getFirstWeekStartDate(selectedYear);
+  const lastWeekEndDate = getLastWeekEndDate(selectedYear);
+
+  let lastMonth = null; // 用于跟踪上一个月份
+  let currentColumn = null; // 当前列
+  let currentColumnIndex = 0; // 当前列的索引
+  let currentRowIndex = 0; // 当前列中的行索引（0-6）
+
+  // 倒序遍历文章数据
+  articles
+    .slice()
+    .reverse()
+    .forEach((article, index) => {
+      // 获取当前格子的日期
+      const currentDate = new Date(article.date);
+      const currentMonth = currentDate.getMonth(); // 获取当前月份
+
+      // 过滤数据：只显示在动态计算的日期范围内的数据
+      if (currentDate < firstWeekStartDate || currentDate > lastWeekEndDate) {
+        return; // 跳过不在范围内的数据
+      }
+
+      // 检查是否是新的月份的开始
+      if (lastMonth !== null && currentMonth !== lastMonth) {
+        // 插入7个隐形格子
+        for (let i = 0; i < 7; i++) {
+          // 如果当前列已经满了（7个格子），则创建新列
+          if (currentRowIndex >= 7) {
+            currentColumn = document.createElement("div");
+            currentColumn.className = "grid-column";
+            gridContainer.appendChild(currentColumn);
+            currentColumnIndex++;
+            currentRowIndex = 0; // 重置行索引
+          }
+
+          // 创建隐形格子
+          const gridItem = document.createElement("div");
+          gridItem.className = "grid-item invisible"; // 添加 invisible 类
+          gridItem.innerHTML = `<div class="item-info"></div>`;
+          currentColumn.appendChild(gridItem);
+          currentRowIndex++; // 增加行索引
+        }
+      }
+
+      lastMonth = currentMonth; // 更新上一个月份
+
+      // 如果当前列已经满了（7个格子），则创建新列
+      if (currentRowIndex >= 7) {
+        currentColumn = document.createElement("div");
+        currentColumn.className = "grid-column";
+        gridContainer.appendChild(currentColumn);
+        currentColumnIndex++;
+        currentRowIndex = 0; // 重置行索引
+      }
+
+      // 创建格子
+      const gridItem = document.createElement("div");
+      gridItem.className = "grid-item";
+
+      // 构建提示字符串
+      const tooltipStr = article.data
+        .map(
+          (item, i) =>
+            `- <a href='${item.href}' target='_blank'>${item.title
+              .replace(/"/g, "&quot;") // 转义双引号
+              .replace(/'/g, "&apos;") // 转义单引号
+              .replace(/</g, "&lt;") // 转义尖括号
+              .replace(/>/g, "&gt;")}</a></br>`
+        )
+        .join(" ");
+
+      // 构建格子内容
+      const backgroundColor =
+        article.wordcount != 0
+          ? `rgba(30,129,248,${article.wordcount / 5000 + 0.2})`
+          : "#E9ECEF";
+      gridItem.innerHTML = `<div class="item-info item-tippy" data-date="${article.date}" data-tippy-content="${article.date}，共 ${article.count} 篇，共 ${article.wordcount} 字<br />${tooltipStr}" style="background-color:${backgroundColor}"></div>`;
+
+      // 将格子添加到当前列中
+      if (!currentColumn) {
+        currentColumn = document.createElement("div");
+        currentColumn.className = "grid-column";
+        gridContainer.appendChild(currentColumn);
+      }
+      currentColumn.appendChild(gridItem);
+      currentRowIndex++; // 增加行索引
+    });
+
+  // 生成星期标签
+  generateWeekLabels();
+
+  // 重新初始化 Tippy 提示
+  tippy(".item-tippy", {
+    allowHTML: true,
+    interactive: true,
+    maxWidth: "none",
+    appendTo: () => document.body,
+  });
+}
+
+// 生成笔记列表（展示所有年份的笔记）
+function generateNoteList(data) {
+  const noteListContainer = document.getElementById("note-list");
+  noteListContainer.innerHTML = ""; // 清空现有内容
+
+  const noteListTemplate = document.createElement("div");
+  noteListTemplate.className = "note-item";
+
+  // 按年和月分组
+  const groupedNotes = {};
+  data
+    .filter((item) => item.section === "📘") // 过滤出笔记数据
+    .forEach((note) => {
+      const date = new Date(note.date);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; // 月份从0开始，所以加1
+
+      if (!groupedNotes[year]) {
+        groupedNotes[year] = {};
+      }
+      if (!groupedNotes[year][month]) {
+        groupedNotes[year][month] = [];
+      }
+      groupedNotes[year][month].push(note);
+    });
+
+  // 按年和月排序并生成笔记列表
+  Object.keys(groupedNotes)
+    .sort((a, b) => b - a) // 按年降序
+    .forEach((year) => {
+      const yearDiv = document.createElement("div");
+      yearDiv.className = "note-year";
+      yearDiv.innerText = year;
+      noteListContainer.appendChild(yearDiv);
+
+      Object.keys(groupedNotes[year])
+        .sort((a, b) => b - a) // 按月降序
+        .forEach((month) => {
+          const monthDiv = document.createElement("div");
+          monthDiv.className = "note-month";
+          monthDiv.innerText = `${month}月`;
+          noteListContainer.appendChild(monthDiv);
+
+          groupedNotes[year][month].forEach((note) => {
+            const noteItem = noteListTemplate.cloneNode(false);
+            const date = new Date(note.date)
+              .toLocaleDateString("zh-CN", {
+                month: "2-digit",
+                day: "2-digit",
+              })
+              .replace(/\//g, "-");
+            const title = note.title.replace(/^# 📘\s*/, ""); // 去掉标题中的 # 📘
+            noteItem.innerHTML = `<a href="${note.href}" target="_blank">${date} &nbsp;&nbsp;&nbsp; ${title}</a>`;
+            noteListContainer.appendChild(noteItem);
+          });
+        });
+    });
+}
+
+// 填充数据
+function fillGrid(data, startDate) {
+  // 填充热力图
+  fillHeatmap(data, startDate);
+
+  // 生成笔记列表（展示所有年份的笔记）
+  generateNoteList(data);
+
+  // 计算全部日记和笔记的数量
+  let diaryCount = 0;
+  let noteCount = 0;
+  let totalWordCount = 0;
+  data.forEach((item) => {
+    if (item.section === "📆") {
+      diaryCount++;
+    } else if (item.section === "📘") {
+      noteCount++;
+    }
+    totalWordCount += item.word_count;
+  });
+
+  // 更新显示日记和笔记数量的元素
+  const diaryCountElement = document.getElementById("diary-count");
+  const noteCountElement = document.getElementById("note-count");
+  const totalWordCountElement = document.getElementById("total-word-count");
+  if (diaryCountElement && noteCountElement && totalWordCountElement) {
+    diaryCountElement.innerText = diaryCount;
+    noteCountElement.innerText = noteCount;
+    totalWordCountElement.innerText = totalWordCount;
+  }
+}
+
+// 重新填充数据
+function refillGrid(data, selectedYear) {
+  const loadingSpinner = document.getElementById("loading-spinner");
+  loadingSpinner.style.display = "flex"; // 显示加载动画
+
+  // 模拟异步加载（实际加载时间取决于数据量）
+  setTimeout(() => {
+    const startDate = getStartDate(selectedYear);
+    fillGrid(data, startDate);
+    loadingSpinner.style.display = "none"; // 隐藏加载动画
+  }, 100); // 100ms 延迟，模拟加载过程
+}
+
+// 监听年份选择框的变化
+yearSelect.addEventListener("change", function () {
+  const selectedYear = parseInt(this.value);
+  if (posts.length > 0) {
+    refillGrid(posts, selectedYear);
+  } else {
+    // 如果 posts 未加载，重新获取数据
+    fetch("data.json")
+      .then((response) => response.json())
+      .then((data) => {
+        posts = data;
+        refillGrid(posts, selectedYear);
+      });
+  }
+});
+
+// 在初始加载时，根据默认年份填充数据
+document.addEventListener("DOMContentLoaded", function () {
+  const loadingSpinner = document.getElementById("loading-spinner");
+  loadingSpinner.style.display = "flex";
+
+  // 设置默认年份为当前年份
+  yearSelect.value = currentYear;
+
+  fetch("data.json")
+    .then((response) => response.json())
+    .then((data) => {
+      posts = data; // 将数据赋值给全局变量 posts
+      const selectedYear = parseInt(yearSelect.value);
+      const startDate = getStartDate(selectedYear);
+      fillGrid(posts, startDate);
+
+      // 添加随机笔记跳转功能
+      const randomNoteButton = document.getElementById("random-note");
+      randomNoteButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        const notes = posts.filter((item) => item.section === "📘");
+        const randomIndex = Math.floor(Math.random() * notes.length);
+        const randomNote = notes[randomIndex];
+        window.open(randomNote.href, "_blank");
+      });
+
+      // 添加随机日记跳转功能
+      const randomDiaryButton = document.getElementById("random-diary");
+      randomDiaryButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        const diaries = posts.filter((item) => item.section === "📆");
+        const randomIndex = Math.floor(Math.random() * diaries.length);
+        const randomDiary = diaries[randomIndex];
+        window.open(randomDiary.href, "_blank");
+      });
+
+      // 获取随机句子
+      fetch("sentence.json")
+        .then((response) => response.json())
+        .then((sentences) => {
+          const randomIndex = Math.floor(
+            Math.random() * sentences.sentences.length
+          );
+          const randomSentence = sentences.sentences[randomIndex];
+          const randomSentenceDiv = document.getElementById("random-sentence");
+          randomSentenceDiv.innerHTML = `<span>「 ${randomSentence} 」</span>`;
+        });
+    })
+    .finally(() => {
+      loadingSpinner.style.display = "none"; // 隐藏加载动画
+    });
+});

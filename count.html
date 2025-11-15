@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日记与笔记数量统计</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        position: relative;
+      }
+      .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh; /* 设置固定高度 */
+        overflow-y: auto; /* 允许垂直滚动 */
+      }
+      h1 {
+        color: #1a73e8;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      h2 {
+        color: #1a73e8;
+        border-bottom: 2px solid #1a73e8;
+        padding-bottom: 10px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      h3 {
+        color: #4285f4;
+        margin-top: 20px;
+      }
+      .year {
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .month {
+        margin-left: 20px;
+      }
+      .entry {
+        margin-left: 40px;
+        color: #5f6368;
+      }
+      .entry::before {
+        content: "• ";
+        color: #4285f4;
+      }
+      .summary {
+        font-size: 14px;
+        color: #5f6368;
+      }
+      canvas {
+        margin-top: 40px;
+        width: 100%;
+        max-width: 600px;
+      }
+      .tabs {
+        display: flex;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        background-color: #f8f9fa;
+        flex: 1;
+        text-align: center;
+      }
+      .tab.active {
+        background-color: #1a73e8;
+        color: #fff;
+      }
+      .tab-content {
+        display: none;
+        width: 100%;
+        height: 100%; /* 确保内容区域高度一致 */
+        overflow-y: auto; /* 允许垂直滚动 */
+      }
+      .tab-content.active {
+        display: block;
+      }
+      #loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-spinner">
+      <div class="spinner"></div>
+    </div>
+    <div class="container">
+      <h1>日记与笔记数量统计</h1>
+      <div class="tabs">
+        <div class="tab active" data-target="summary">汇总</div>
+        <div class="tab" data-target="chart">图表</div>
+      </div>
+      <div class="tab-content active" id="summary">
+        <div id="content"></div>
+      </div>
+      <div class="tab-content" id="chart">
+        <canvas id="chartCanvas"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      async function loadData() {
+        try {
+          const response = await fetch("data.json");
+          const data = await response.json();
+
+          const filteredData = data.map((entry) => ({
+            date: entry.date,
+            section: entry.section,
+          }));
+
+          const yearMap = new Map();
+
+          filteredData.forEach((entry) => {
+            const [year, month, day] = entry.date.split("-");
+            const monthKey = `${year}-${month}`;
+
+            if (!yearMap.has(year)) {
+              yearMap.set(year, { diary: 0, note: 0, months: new Map() });
+            }
+
+            if (!yearMap.get(year).months.has(monthKey)) {
+              yearMap.get(year).months.set(monthKey, { diary: 0, note: 0 });
+            }
+
+            if (entry.section === "📆") {
+              yearMap.get(year).diary++;
+              yearMap.get(year).months.get(monthKey).diary++;
+            } else if (entry.section === "📘") {
+              yearMap.get(year).note++;
+              yearMap.get(year).months.get(monthKey).note++;
+            }
+          });
+
+          const contentDiv = document.getElementById("content");
+
+          yearMap.forEach((yearData, year) => {
+            const yearDiv = document.createElement("div");
+            yearDiv.className = "year";
+            yearDiv.innerHTML = `<h2>${year}年 <span class="summary">📆 ${yearData.diary} 篇  📘 ${yearData.note} 篇</span></h2>`;
+
+            const sortedMonths = Array.from(yearData.months.keys()).sort(
+              (a, b) => b.localeCompare(a)
+            );
+
+            sortedMonths.forEach((monthKey) => {
+              const [, month] = monthKey.split("-");
+              const { diary, note } = yearMap.get(year).months.get(monthKey);
+
+              const monthDiv = document.createElement("div");
+              monthDiv.className = "month";
+              monthDiv.innerHTML = `<h3>${month}月份</h3>`;
+
+              if (diary > 0) {
+                const diaryEntry = document.createElement("div");
+                diaryEntry.className = "entry";
+                diaryEntry.textContent = `📆 ${diary} 篇`;
+                monthDiv.appendChild(diaryEntry);
+              }
+
+              if (note > 0) {
+                const noteEntry = document.createElement("div");
+                noteEntry.className = "entry";
+                noteEntry.textContent = `📘 ${note} 篇`;
+                monthDiv.appendChild(noteEntry);
+              }
+
+              yearDiv.appendChild(monthDiv);
+            });
+
+            contentDiv.appendChild(yearDiv);
+          });
+
+          // 生成图表数据
+          const labels = [];
+          const diaryData = [];
+          const noteData = [];
+
+          // 按日期从大到小排序
+          const allMonths = [];
+          yearMap.forEach((yearData, year) => {
+            yearData.months.forEach((monthData, monthKey) => {
+              allMonths.push(monthKey);
+            });
+          });
+
+          // 按日期从大到小排序
+          allMonths.sort((a, b) => new Date(b) - new Date(a));
+
+          allMonths.forEach((monthKey) => {
+            const [year, month] = monthKey.split("-");
+            const { diary, note } = yearMap.get(year).months.get(monthKey);
+
+            labels.push(`${year}-${month}`);
+            diaryData.push(diary);
+            noteData.push(note);
+          });
+
+          const chartElement = document.getElementById("chartCanvas");
+
+          if (chartElement && chartElement.getContext) {
+            const ctx = chartElement.getContext("2d");
+            new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: labels,
+                datasets: [
+                  {
+                    label: "📆 日记",
+                    data: diaryData,
+                    borderColor: "#ff6f00",
+                    fill: false,
+                  },
+                  {
+                    label: "📘 笔记",
+                    data: noteData,
+                    borderColor: "#4285f4",
+                    fill: false,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          } else {
+            console.error(
+              "Canvas element not found or getContext is not a function"
+            );
+          }
+        } catch (error) {
+          console.error("Error loading data:", error);
+        } finally {
+          document.getElementById("loading-spinner").style.display = "none";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            document
+              .querySelectorAll(".tab")
+              .forEach((t) => t.classList.remove("active"));
+            document
+              .querySelectorAll(".tab-content")
+              .forEach((c) => c.classList.remove("active"));
+
+            tab.classList.add("active");
+            document.getElementById(tab.dataset.target).classList.add("active");
+          });
+        });
+
+        loadData();
+      });
+    </script>
+  </body>
+</html>
