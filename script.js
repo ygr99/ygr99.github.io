@@ -270,6 +270,11 @@ function fillHeatmap(data, startDate) {
     maxWidth: "none",
     appendTo: () => document.body,
   });
+
+  // 页面加载或重绘后，将热力图滚动到最右侧
+  requestAnimationFrame(() => {
+    gridContainer.scrollLeft = gridContainer.scrollWidth;
+  });
 }
 
 // 生成笔记列表（展示所有年份的笔记）
