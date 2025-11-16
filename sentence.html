@@ -30,6 +30,35 @@
         margin-bottom: 2rem;
       }
 
+      .search-container {
+        max-width: 800px;
+        margin: 0 auto 2rem auto;
+      }
+
+      .sentence-count {
+        color: #2c3e50;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+
+      .search-box {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+
       .sentence-list {
         list-style-type: none;
         padding: 0;
@@ -47,6 +76,31 @@
       .sentence-list li:hover {
         transform: translateY(-3px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+      }
+
+      .sentence-list li.hidden {
+        display: none;
+      }
+
+      .copy-feedback {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #2ecc71;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 1000;
+      }
+
+      .copy-feedback.show {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       @media (max-width: 600px) {
@@ -58,40 +112,161 @@
         h1 {
           font-size: 2rem;
         }
+
+        .sentence-count {
+          text-align: center;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>句子列表</h1>
+      <div class="search-container">
+        <span class="sentence-count" id="sentence-count">共 0 条</span>
+        <input
+          type="text"
+          class="search-box"
+          id="search-box"
+          placeholder="搜索句子..."
+        />
+      </div>
       <ul class="sentence-list" id="sentence-list">
         <!-- 句子将在这里动态生成 -->
       </ul>
     </div>
+    <div class="copy-feedback" id="copy-feedback">已复制到剪贴板</div>
 
     <script>
+      let allSentences = [];
+      let sentenceElements = [];
+
       document.addEventListener("DOMContentLoaded", function () {
+        const searchBox = document.getElementById("search-box");
+        const sentenceList = document.getElementById("sentence-list");
+        const copyFeedback = document.getElementById("copy-feedback");
+        const sentenceCount = document.getElementById("sentence-count");
+
+        // 更新句子数量统计
+        function updateSentenceCount(visibleCount, totalCount) {
+          if (visibleCount === totalCount) {
+            sentenceCount.textContent = `共 ${totalCount} 条`;
+          } else {
+            sentenceCount.textContent = `显示 ${visibleCount} / 共 ${totalCount} 条`;
+          }
+        }
+
+        // 加载句子数据
         fetch("sentence.json")
           .then((response) => response.json())
           .then((data) => {
-            const sentenceList = document.getElementById("sentence-list");
-            data.sentences.forEach((sentence, index) => {
-              const li = document.createElement("li");
-              li.textContent = sentence;
-              li.style.opacity = "0";
-              li.style.transform = "translateY(20px)";
-              sentenceList.appendChild(li);
-
-              setTimeout(() => {
-                li.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-                li.style.opacity = "1";
-                li.style.transform = "translateY(0)";
-              }, index * 100);
-            });
+            allSentences = data.sentences;
+            renderSentences(allSentences);
+            updateSentenceCount(allSentences.length, allSentences.length);
           })
           .catch((error) => {
             console.error("Error fetching sentences:", error);
           });
+
+        // 搜索功能
+        searchBox.addEventListener("input", function (e) {
+          const searchText = e.target.value.trim().toLowerCase();
+          filterSentences(searchText);
+        });
+
+        // 渲染句子列表
+        function renderSentences(sentences) {
+          sentenceList.innerHTML = "";
+          sentenceElements = [];
+
+          sentences.forEach((sentence, index) => {
+            const li = document.createElement("li");
+            li.textContent = sentence;
+            li.style.opacity = "0";
+            li.style.transform = "translateY(20px)";
+
+            // 点击复制功能
+            li.addEventListener("click", function () {
+              copyToClipboard(sentence);
+            });
+
+            sentenceList.appendChild(li);
+            sentenceElements.push(li);
+
+            setTimeout(() => {
+              li.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+              li.style.opacity = "1";
+              li.style.transform = "translateY(0)";
+            }, index * 50);
+          });
+        }
+
+        // 过滤句子
+        function filterSentences(searchText) {
+          let visibleCount = 0;
+          if (searchText === "") {
+            // 如果搜索框为空，显示全部
+            sentenceElements.forEach((li) => {
+              li.classList.remove("hidden");
+              visibleCount++;
+            });
+          } else {
+            // 根据搜索文字过滤
+            allSentences.forEach((sentence, index) => {
+              const li = sentenceElements[index];
+              if (sentence.toLowerCase().includes(searchText)) {
+                li.classList.remove("hidden");
+                visibleCount++;
+              } else {
+                li.classList.add("hidden");
+              }
+            });
+          }
+          // 更新句子数量统计
+          updateSentenceCount(visibleCount, allSentences.length);
+        }
+
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard
+              .writeText(text)
+              .then(() => {
+                showCopyFeedback();
+              })
+              .catch((err) => {
+                console.error("复制失败:", err);
+                fallbackCopy(text);
+              });
+          } else {
+            fallbackCopy(text);
+          }
+        }
+
+        // 备用复制方法
+        function fallbackCopy(text) {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand("copy");
+            showCopyFeedback();
+          } catch (err) {
+            console.error("复制失败:", err);
+          }
+          document.body.removeChild(textArea);
+        }
+
+        // 显示复制反馈
+        function showCopyFeedback() {
+          copyFeedback.classList.add("show");
+          setTimeout(() => {
+            copyFeedback.classList.remove("show");
+          }, 2000);
+        }
       });
     </script>
   </body>
