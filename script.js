@@ -411,7 +411,8 @@ function generateNoteList(data) {
         const link = document.createElement("a");
         link.href = note.href;
         link.target = "_blank";
-        link.textContent = `${dateStr}     ${title}`;
+        // 用 span 包裹 dateStr 并设置 style
+        link.innerHTML = `<span style="color: black;">${dateStr}</span> &nbsp;&nbsp;&nbsp; ${title}`;
         noteItem.appendChild(link);
         fragment.appendChild(noteItem);
       }
