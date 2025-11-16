@@ -79,11 +79,49 @@ function parseFileContent(content) {
   // 过滤掉没有标题的块
   const filteredResult = result.filter((item) => item.title);
 
-  // 计算字数
+    // 计算字数（使用精确的字数统计函数）
   filteredResult.forEach((item) => {
-    // 去除两端空白字符，并且去除中间的空白字符和特殊符号（如换行符 \n）
-    item.word_count = item.content.trim().replace(/\s+/g, "").length;
+    // 调用字数统计函数获取详细统计结果
+    const wordStats = countWords(item.content);
+    // 将统计结果赋值给item，可根据需要保留total或全部详细数据
+    item.word_count = wordStats.total; // 保留总字数
+    // 如需保留各类型详细统计，可添加以下代码
+    // item.word_stats = wordStats;
   });
+
+  // 精确的字数统计函数
+  function countWords(content) {
+    // 去除第一行（标题行）
+    const lines = content.split("\n");
+    const contentWithoutTitle = lines.slice(1).join("\n");
+
+    // 去除多余的空格和换行符
+    const trimmedContent = contentWithoutTitle.replace(/\s+/g, " ").trim();
+
+    // 统计中文字符（包括中文标点）
+    const chineseChars = (
+      trimmedContent.match(
+        /[\u4e00-\u9fa5\u3000-\u303f\uff00-\uff0f\uff1a-\uff20\uff3b-\uff40\uff5b-\uff65]/g
+      ) || []
+    ).length;
+
+    // 统计数字
+    const numbers = (trimmedContent.match(/\d+/g) || []).length;
+
+    // 统计英文单词（去除标点符号和数字）
+    const englishWords = trimmedContent
+      .replace(/[^\w\s]/g, "") // 去除标点符号
+      .replace(/\d+/g, " ") // 将数字替换为空格
+      .split(/\s+/) // 按空格分割
+      .filter((word) => word.length > 0 && /^[a-zA-Z]+$/.test(word)).length; // 只保留纯英文单词
+
+    return {
+      chinese: chineseChars,
+      english: englishWords,
+      numbers: numbers,
+      total: chineseChars + englishWords + numbers,
+    };
+  }
 
   // 重新分配 id，从大到小
   const totalBlocks = filteredResult.length;
