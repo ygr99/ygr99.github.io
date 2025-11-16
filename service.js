@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 // 解析日期
 function parseDateFromTitle(title) {
@@ -123,10 +124,20 @@ function parseFileContent(content) {
     };
   }
 
-  // 重新分配 id，从大到小
-  const totalBlocks = filteredResult.length;
-  filteredResult.forEach((item, index) => {
-    item.id = totalBlocks - index; // 从大到小分配 id
+  // 生成唯一ID：使用日期+标题的哈希值
+  // 这样即使删除文章，其他文章的ID也不会改变
+  function generateUniqueId(date, title) {
+    const hash = crypto
+      .createHash("md5")
+      .update(`${date || ""}${title || ""}`)
+      .digest("hex");
+    // 取前12位作为ID，既保证唯一性又不会太长
+    return hash.substring(0, 12);
+  }
+
+  // 为每篇文章生成唯一ID
+  filteredResult.forEach((item) => {
+    item.id = generateUniqueId(item.date, item.title);
     item.href = `article.html?id=${item.id}`; // 生成 href 字段
   });
 

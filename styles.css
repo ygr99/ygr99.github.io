@@ -150,6 +150,18 @@ a {
     position: relative;
 }
 
+/* 月份标签样式  改成数字居中显示，字体大小为10px*/
+.month-label {
+    text-align: center;
+    line-height: 1;
+    font-size: 10px;
+    color: #333;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /* 热力图格子信息样式 */
 .item-info {
     font-size: 10px;
@@ -158,6 +170,7 @@ a {
     /* 固定格子宽度 */
     background-color: #E9ECEF;
     border-radius: .25rem;
+    position: relative;
 }
 
 /* 摘要样式 */

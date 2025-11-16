@@ -1078,7 +1078,8 @@
       fetch("data.json")
         .then((response) => response.json())
         .then((data) => {
-          const article = data.find((item) => item.id == articleId);
+          // 使用严格相等比较，因为ID现在是字符串
+          const article = data.find((item) => item.id === articleId);
           if (article) {
             const content = article.content;
             const title = article.title;

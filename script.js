@@ -231,6 +231,10 @@ function fillHeatmap(data, startDate) {
       const gridItem = document.createElement("div");
       gridItem.className = "grid-item";
 
+      // 检查是否是当月的第一天
+      const isFirstDayOfMonth = currentDate.getDate() === 1;
+      const monthNumber = currentMonth + 1; // 月份从0开始，所以加1
+
       // 构建提示字符串
       const tooltipStr = article.data
         .map(
@@ -248,7 +252,10 @@ function fillHeatmap(data, startDate) {
         article.wordcount != 0
           ? `rgba(30,129,248,${article.wordcount / 5000 + 0.2})`
           : "#E9ECEF";
-      gridItem.innerHTML = `<div class="item-info item-tippy" data-date="${article.date}" data-tippy-content="${article.date}，共 ${article.count} 篇，共 ${article.wordcount} 字<br />${tooltipStr}" style="background-color:${backgroundColor}"></div>`;
+      
+      // 如果是月初，在格子内部显示月份标签
+      const monthLabel = isFirstDayOfMonth ? `<span class="month-label">${monthNumber}</span>` : '';
+      gridItem.innerHTML = `<div class="item-info item-tippy" data-date="${article.date}" data-tippy-content="${article.date}，共 ${article.count} 篇，共 ${article.wordcount} 字<br />${tooltipStr}" style="background-color:${backgroundColor}">${monthLabel}</div>`;
 
       // 将格子添加到当前列中
       if (!currentColumn) {
