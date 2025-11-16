@@ -302,17 +302,34 @@ function generateNoteList(data) {
   Object.keys(groupedNotes)
     .sort((a, b) => b - a) // 按年降序
     .forEach((year) => {
+      // 计算该年的笔记总数
+      const yearNoteCount = Object.values(groupedNotes[year]).reduce(
+        (total, monthNotes) => total + monthNotes.length,
+        0
+      );
+
       const yearDiv = document.createElement("div");
       yearDiv.className = "note-year";
-      yearDiv.innerText = year;
+      yearDiv.textContent = year;
+      const yearCountSpan = document.createElement("span");
+      yearCountSpan.className = "note-year-count";
+      yearCountSpan.textContent = yearNoteCount;
+      yearDiv.appendChild(yearCountSpan);
       noteListContainer.appendChild(yearDiv);
 
       Object.keys(groupedNotes[year])
         .sort((a, b) => b - a) // 按月降序
         .forEach((month) => {
+          // 计算该月的笔记数量
+          const monthNoteCount = groupedNotes[year][month].length;
+
           const monthDiv = document.createElement("div");
           monthDiv.className = "note-month";
-          monthDiv.innerText = `${month}月`;
+          monthDiv.textContent = `${month}月 `;
+          const monthCountSpan = document.createElement("span");
+          monthCountSpan.className = "note-month-count";
+          monthCountSpan.textContent = monthNoteCount;
+          monthDiv.appendChild(monthCountSpan);
           noteListContainer.appendChild(monthDiv);
 
           groupedNotes[year][month].forEach((note) => {

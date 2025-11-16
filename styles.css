@@ -185,12 +185,31 @@ a {
     color: #1E81F8;
 }
 
+.note-year-count {
+    margin-left: 10px;
+    font-weight: normal;
+    color: #1E81F8;
+    font-size: 0.9em;
+}
+
+.note-month-count {
+    margin-left: 10px;
+    font-weight: normal;
+    color: #1E81F8;
+    font-size: 0.9em;
+}
+
 .note-month {
     font-size: 1em;
     font-weight: bold;
     margin-top: 15px;
     margin-bottom: 5px;
     color: #1E81F8;
+}
+
+/* .note-month 除了第一个 */
+.note-month:not(:first-child) {
+    margin-top: 30px;
 }
 
 .note-item {
