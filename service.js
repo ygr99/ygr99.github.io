@@ -34,6 +34,12 @@ function parseFileContent(content) {
         content: "",
         href: "", // 添加 href 字段
       };
+    } else if (line.startsWith("∞∞∞")) {
+      // 遇到其他类型的块（如 ∞∞∞css），结束当前的 markdown 块
+      if (currentBlock && currentBlock.title) {
+        result.push(currentBlock);
+      }
+      currentBlock = null; // 设置为 null，后续内容不会被添加到 markdown 块中
     } else if (currentBlock) {
       if (line.startsWith("# 📆") || line.startsWith("# 📘")) {
         if (currentBlock.title) {
@@ -92,12 +98,8 @@ function parseFileContent(content) {
 
   // 精确的字数统计函数
   function countWords(content) {
-    // 去除第一行（标题行）
-    const lines = content.split("\n");
-    const contentWithoutTitle = lines.slice(1).join("\n");
-
     // 去除多余的空格和换行符
-    const trimmedContent = contentWithoutTitle.replace(/\s+/g, " ").trim();
+    const trimmedContent = content.replace(/\s+/g, " ").trim();
 
     // 统计中文字符（包括中文标点）
     const chineseChars = (
