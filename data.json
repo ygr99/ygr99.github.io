@@ -1,12 +1,21 @@
 [
   {
-    "id": "250108a1c3de",
-    "title": "# 📆 2025年11月15日 周日46周",
-    "date": "2025-11-15",
+    "id": "9e95994d0c12",
+    "title": "# 📆 2026年01月06日 周二02周",
+    "date": "2026-01-06",
     "section": "📆",
-    "word_count": 3,
-    "content": "测试 bug\n",
-    "href": "article.html?id=250108a1c3de"
+    "word_count": 26,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间戳\n记录时间：15:45\n💤\n",
+    "href": "article.html?id=9e95994d0c12"
+  },
+  {
+    "id": "99cdabfa2208",
+    "title": "# 📆 2025年12月09日 周二50周",
+    "date": "2025-12-09",
+    "section": "📆",
+    "word_count": 265,
+    "content": "## 🚩事项\n- [ ] 整理 电脑空间（特别处理视频文件）\n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n感觉大家都好有趣啊，不像我，不仅连句话都搭不上，还要被当成破坏气氛的傻狗，我现实生活中自闭，没朋友，哪怕是在网上也受尽冷眼，每次组织半天的语言都如鲠在喉，最后还是默默删掉了，看你们互动融入不了群体的，我躲在屏幕背后默默哭出来了，所以今天是肯德基疯狂星期四，有好心人请我吃吗？\n\n直播间兄弟姐妹们都好有趣，就我只会发人机弹幕，没人理还毁气氛，现实自闭没朋友，网上没存在感，憋半天的弹幕全删掉，融不进去偷偷哭，所以今天肯德基疯狂星期四，有好心人请我吃吗？\n\n\n### 🩵情韵心语\n\n\n## 🕛时间戳\n记录时间：04:27\n💤\n",
+    "href": "article.html?id=99cdabfa2208"
   },
   {
     "id": "0f7e889df43a",
@@ -151,6 +160,15 @@
     "word_count": 73,
     "content": "\n## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n* [关于 Mermaid | Mermaid中文文档](https://docs.min2k.com/zh/mermaid/intro/)\n\n* [模仿编程导航的网站 - 编程导航 - 程序员编程学习交流社区](https://www.codefather.cn/post/1833508478520188929#heading-0)\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n\n## 🕛时间\n记录时间：08:36\n💤 03:10-08:00 -> 4小时50分钟\n\n\n",
     "href": "article.html?id=3fa92de2299e"
+  },
+  {
+    "id": "73bc34d8cbd1",
+    "title": "# 📘 利用Windows PowerShell统计Git项目提交次数：高效项目管理的实用技巧",
+    "date": "2025-02-06",
+    "section": "📘",
+    "word_count": 963,
+    "content": "\n> 本文为 AI 生成内容\n\n在软件开发和项目管理中，了解团队成员或自己在Git项目中的活跃程度是评估项目进展和个人贡献的重要指标。今天，我们就来探讨如何使用Windows PowerShell编写脚本来统计Git项目的提交次数，这对于跟踪项目进度、分析开发效率以及评估个人绩效都有着重要的意义。\n\n## 效果\n![PixPin_2025-02-08_15-00-51.png](https://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/PixPin_2025-02-08_15-00-51.png)\n\n## 脚本\n\n```\n# 确保输出编码为 UTF-8\n$OutputEncoding = [System.Text.Encoding]::UTF8\n\n# 定义包含多个 Git 仓库的目录\n$repos = @(\n    \"C:\\99\\code\\test\",\n    \"C:\\99\\code\\test2\"\n)\n\n# 提示用户输入 Git 账号名\n$gitUsername = Read-Host \"Please enter your Git username\"\n\n# 提示用户输入年份\n$inputYear = Read-Host \"Please enter the year\"\n\n# 初始化每个月的提交次数\n$monthlyCounts = @{}\nfor ($month = 1; $month -le 12; $month++) {\n    $monthlyCounts[$month] = 0\n}\n\n# 遍历每个仓库\nforeach ($repo in $repos) {\n    if (Test-Path \"$repo\\.git\") {\n        Push-Location $repo\n        \n        # 遍历每个月\n        for ($month = 1; $month -le 12; $month++) {\n            # 计算每个月的起始和结束日期\n            $startDate = \"$inputYear-$month-01 00:00:00\"\n            $endDate = \"$inputYear-$month-$([datetime]::DaysInMonth($inputYear, $month)) 23:59:59\"\n            \n            # 查询指定用户在本月的提交次数\n            $userCount = git log --after=\"$startDate\" --before=\"$endDate\" --pretty='%aN' | Where-Object { $_ -eq $gitUsername } | Measure-Object -Line | Select-Object -ExpandProperty Lines\n            \n            # 累加到每个月的提交次数\n            $monthlyCounts[$month] += $userCount\n        }\n        \n        Pop-Location\n    }\n}\n\n# 输出每个月的提交次数\n$monthlyCounts.GetEnumerator() | Sort-Object Key | ForEach-Object {\n    $month = $_.Key.ToString(\"00\")  # 确保月份为两位数\n    $count = $_.Value\n    Write-Output \"$month $count\"\n}\n\n# 计算总提交次数\n$totalCount = ($monthlyCounts.Values | Measure-Object -Sum).Sum\n\n# 输出总提交次数\nWrite-Output \"-----\"\nWrite-Output \"total $gitUsername $totalCount\"\n\n```\n\n## 脚本使用方法\n### 1. 创建脚本文件\n将上述代码复制到一个文本编辑器中，例如Windows自带的记事本或者更专业的代码编辑器（如Visual Studio Code）。\n然后将文件保存为`git.ps1`，注意文件扩展名必须是`.ps1`，这是PowerShell脚本文件的标准扩展名。\n\n### 2. 运行脚本前的权限设置(可选)\n由于Windows默认情况下可能会限制运行PowerShell脚本的权限，你需要先确保当前的执行策略允许运行本地脚本。可以按照以下步骤进行操作：\n- 以管理员身份打开PowerShell。\n- 输入以下命令查看当前的执行策略：\n```powershell\nGet-ExecutionPolicy\n```\n- 如果当前策略不允许运行脚本，你可以将执行策略临时修改为`RemoteSigned`，这样可以运行本地创建的脚本，命令如下：\n```powershell\nSet-ExecutionPolicy RemoteSigned\n```\n在运行完脚本后，你可以将执行策略改回原来的设置，以保证系统安全。\n\n### 3. 运行脚本\n- 打开PowerShell，并导航到保存`git.ps1`脚本的目录。例如，如果脚本保存在`D:\\Scripts`目录下，可以使用以下命令进入该目录：\n```powershell\nSet-Location D:\\Scripts\n```\n- 运行脚本，在PowerShell中输入：\n```powershell\n./git.ps1\n```\n- 按照脚本的提示，依次输入你的Git用户名和需要统计的年份，脚本将自动计算并输出每个月的提交次数以及全年的总提交次数。\n\n## 总结与应用\n通过这个Windows PowerShell脚本，我们可以高效地统计Git项目的提交次数。无论是团队管理者想要了解团队成员的工作进度，还是开发者自己想要回顾自己在一年中的代码贡献，这个脚本都能提供有价值的数据支持。在实际应用中，你可以将这个脚本集成到项目的自动化脚本中，定期生成提交次数报告，以便更好地进行项目管理和分析。\n\n希望这篇博客对你理解和使用Windows PowerShell统计Git项目提交次数有所帮助。如果你有任何问题或建议，欢迎在评论区留言交流。 \n",
+    "href": "article.html?id=73bc34d8cbd1"
   },
   {
     "id": "42b61cc03f37",
@@ -679,8 +697,8 @@
     "title": "# 📆 2024年12月18日 周三51周",
     "date": "2024-12-18",
     "section": "📆",
-    "word_count": 503,
-    "content": "## 🚩事项\n- [x] 优化 斗鱼用户弹幕 添加 获取当天、获取昨天 弹幕功能；修复时区问题\n- [x] 优化 liuda99.fun HTML；采用 Markdown 格式化网页内容并动态渲染\n- [x] 优化：douyu-cs-question-search 解析html符号 和 /n\n- [x] 优化：douyu-cs-question-search 限制最大高度，展开折叠\n\n\n\n## 杂记\n### 💻网韵技径\n\ndocker 容器时区与服务器时区不一致\n[docker容器时区与服务器时区不一致 - 1Panel - 社区论坛 - FIT2CLOUD 飞致云](https://bbs.fit2cloud.com/t/topic/3256)\n比如UTC和CST相差8小时，换句话来说就是容器时间与北京时间相差8个小时。\nsudo docker ps\nsudo docker exec -it <container_id> /bin/bash\ndate\nls -l /etc/localtime\nln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\n然后去 重启容器 \nhttps://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/1734486585226.png\n\n这是一个常见的问题，尤其是在动态内容较多的页面中。当展开或折叠内容时，页面会重新计算布局（称为 “重排” 或 “回流”），导致页面内容发生移动。为了避免这种视觉上的跳动，\n\n定义 Markdown 内容：在 JavaScript 中定义一个常量，存储 Markdown 内容。\n解析 Markdown：使用 JavaScript 库（如 marked.js）将 Markdown 内容解析为 HTML。\n动态渲染到页面：将解析后的 HTML 插入到页面中。\n\n\n### 📜文韵影律\n\n手机隐藏相册里面全是擦照 #句子\n\n对于一款产品来说，除了功能外，交互体验与视觉呈现也很重要\n\n我不知道有多少人和我是同样的情况，从小到大没有去过其他城市，除了上学和看病。\n\n未成年充值退款申请 #句子\n\n\"哇塞，这位大佬的操作简直是教科书级的反面教材，我都要拿出小本本记下来了，免得以后误入歧途！\" #句子\n\n\n### 🩵情韵心语\n\n\n## 🕛时间戳\n记录时间：08:42\n💤 01:30-08:05 -> 6小时35分钟\n\n",
+    "word_count": 507,
+    "content": "## 🚩事项\n- [x] 优化 斗鱼用户弹幕 添加 获取当天、获取昨天 弹幕功能；修复时区问题\n- [x] 优化 liuda99.fun HTML；采用 Markdown 格式化网页内容并动态渲染\n- [x] 优化：douyu-cs-question-search 解析html符号 和 /n\n- [x] 优化：douyu-cs-question-search 限制最大高度，展开折叠\n\n\n\n## 杂记\n### 💻网韵技径\n\ndocker 容器时区与服务器时区不一致\n[docker容器时区与服务器时区不一致 - 1Panel - 社区论坛 - FIT2CLOUD 飞致云](https://bbs.fit2cloud.com/t/topic/3256)\n比如UTC和CST相差8小时，换句话来说就是容器时间与北京时间相差8个小时。\nsudo docker ps\nsudo docker exec -it <container_id> /bin/bash\ndate\nls -l /etc/localtime\nln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\nln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\n然后去 重启容器 \nhttps://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/1734486585226.png\n\n这是一个常见的问题，尤其是在动态内容较多的页面中。当展开或折叠内容时，页面会重新计算布局（称为 “重排” 或 “回流”），导致页面内容发生移动。为了避免这种视觉上的跳动，\n\n定义 Markdown 内容：在 JavaScript 中定义一个常量，存储 Markdown 内容。\n解析 Markdown：使用 JavaScript 库（如 marked.js）将 Markdown 内容解析为 HTML。\n动态渲染到页面：将解析后的 HTML 插入到页面中。\n\n\n### 📜文韵影律\n\n手机隐藏相册里面全是擦照 #句子\n\n对于一款产品来说，除了功能外，交互体验与视觉呈现也很重要\n\n我不知道有多少人和我是同样的情况，从小到大没有去过其他城市，除了上学和看病。\n\n未成年充值退款申请 #句子\n\n\"哇塞，这位大佬的操作简直是教科书级的反面教材，我都要拿出小本本记下来了，免得以后误入歧途！\" #句子\n\n\n### 🩵情韵心语\n\n\n## 🕛时间戳\n记录时间：08:42\n💤 01:30-08:05 -> 6小时35分钟\n\n",
     "href": "article.html?id=343582eb4802"
   },
   {
@@ -751,8 +769,8 @@
     "title": "# 📆 2024年12月14日 周六50周",
     "date": "2024-12-14",
     "section": "📆",
-    "word_count": 362,
-    "content": "\n💤 01:00-08:05 -> 7小时5分钟 \n\n文本代码的作图工具，绘制线框图 [D2 Playground](https://play.d2lang.com/)\n\n[YT Pics](https://www.ytpics.com/)\n一个 Web 应用，输入 YouTube 网址和指定时间，它会自动截取该时间的截图。\n\n- [x] 中午回家前去理个发\n- [x] 理发店傍边的零食店买点零食（好恰达）\n      共45元：一个大猪蹄12\n\n现在也没正经事干，每天看直播和看片的时候都心怀愧疚。\n\n[2024 年终总结](https://liuyuyang.net/article/2214)\n\n每天有事情做，有稳定的收入来源，能吃上可口的饭菜，便已足够。若能再奢侈一些，父母身体安康，爱人相伴左右，还能培养自己热爱的兴趣，这样的生活，无疑已臻圆满。#句子\n\n文中讲述了一个小女孩看着英雄骑着骏马，接受众人簇拥的情景。小女孩天真地对母亲说，她无意成为万众瞩目的英雄，只愿做那个为英雄欢呼、献上鲜花的普通人。#句子\n\n- [x] 电脑空间清理\n\n09:30-10:00\n- [x] 斗鱼客服问题搜索，部署到了 GitHub public\n\n\n10:00-11:30\n- [x] 斗鱼钻石粉丝开通记录，部署到了 GitHub private\n\n11:40 微信小游戏 热血英雄团\n\n16:00-16:30 🌛《周韵周刊》第50周\n\n",
+    "word_count": 369,
+    "content": "\n💤 01:00-08:05 -> 7小时5分钟 \n\n文本代码的作图工具，绘制线框图 [D2 Playground](https://play.d2lang.com/)\n\n[YT Pics](https://www.ytpics.com/)\n一个 Web 应用，输入 YouTube 网址和指定时间，它会自动截取该时间的截图。\n\n- [x] 中午回家前去理个发\n- [x] 理发店傍边的零食店买点零食（好恰达）\n      共45元：一个大猪蹄12\n\n现在也没正经事干，每天看直播和看片的时候都心怀愧疚。\n\n[2024 年终总结](https://liuyuyang.net/article/2214)\n\n每天有事情做，有稳定的收入来源，能吃上可口的饭菜，便已足够。若能再奢侈一些，父母身体安康，爱人相伴左右，还能培养自己热爱的兴趣，这样的生活，无疑已臻圆满。#句子\n\n文中讲述了一个小女孩看着英雄骑着骏马，接受众人簇拥的情景。小女孩天真地对母亲说，她无意成为万众瞩目的英雄，只愿做那个为英雄欢呼、献上鲜花的普通人。#句子\n\n- [x] 电脑空间清理\n- [x] 电脑空间清理\n\n09:30-10:00\n- [x] 斗鱼客服问题搜索，部署到了 GitHub public\n\n\n10:00-11:30\n- [x] 斗鱼钻石粉丝开通记录，部署到了 GitHub private\n\n11:40 微信小游戏 热血英雄团\n\n16:00-16:30 🌛《周韵周刊》第50周\n\n",
     "href": "article.html?id=3c82bef75335"
   },
   {
@@ -760,8 +778,17 @@
     "title": "# 📘 🌛《周韵周刊》第50周 12.9-12.15",
     "date": "2024-12-14",
     "section": "📘",
-    "word_count": 825,
-    "content": "\n## 技术分享\n\n### 网页 Canvas 生成视频缩略图\n链接：47.121.112.184:8085\n介绍：选择视频，选择生成间隔，生成视频略缩图，方便浏览\n\n使用Canvas生成视频缩略图的优点在于：\n- **速度快**：无需依赖外部工具，直接在浏览器中实现。\n\n具体实现过程如下：\n- 使用HTML5的`<canvas>`元素，通过JavaScript操作视频帧，生成缩略图。\n- 代码示例：\n  ```html\n  <canvas id=\"thumbnail\"></canvas>\n  <video id=\"video\" src=\"example.mp4\"></video>\n  <script>\n    const canvas = document.getElementById('thumbnail');\n    const video = document.getElementById('video');\n    canvas.width = video.videoWidth;\n    canvas.height = video.videoHeight;\n    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);\n  </script>\n  ```\n\n### 直播视界\n链接：47.121.112.184:8086\n介绍：响应式，多平台（斗鱼、B站）直播间卡片展示：平台、标签分类，实时开播状态和封面，方便浏览，然后跳转\n\nUI AI 根据截图（小奶团官网）生成了界面，使用其他 AI 实现了功能\n\n### 斗鱼客服问题搜索、斗鱼钻石粉丝开通记录 HTML 界面\n使用之前用 Java，python 开发的斗鱼智能发弹幕工具 的一些爬取 json 数据\n\n斗鱼客服问题搜索\nhttps://github.com/ygr99/douyu-cs-question-search\nhttps://xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search\n\n斗鱼钻石粉丝开通记录\nhttps://github.com/ygr99/douyu-opening-diamond-fans-data\n\n### 其他\n* 优化了 liuda99.fun 界面内容、添加回来 heynote-blog 脚注（要不然都不想写笔记了）\n\n## 工作管理：项目的优化与民警交接\n\n主要完成了以下工作：\n- **优化样式与修复Bug**：通过调整CSS和修复代码中的问题，提升了用户体验。\n- **开发XX交接功能**：实现了XX交接管理模块。\n\n项目中的技术亮点：\n- 将搜索表单放到了弹出框\n\n## 资源推荐\n\n本周发现了一些实用的工具和平台，推荐给大家：\n1. **MasterGo**：AI时代的数字界面生产平台，适合UI/UX设计师。（非常牛逼）\n   - 官网：[MasterGo](https://mastergo.com/)\n2. **GitHub贡献图生成器**：Green Wall，帮助开发者展示GitHub贡献图。\n   - 链接：[Green Wall](https://green-wall.leoku.dev/)\n\n文本代码的作图工具，绘制线框图 [D2 Playground](https://play.d2lang.com/)\n\n\n油猴脚本：\n[【哔哩哔哩】屏蔽视频PCDN地址](https://greasyfork.org/zh-CN/scripts/500519)\n[【哔哩哔哩】修改选集列表框高度](https://greasyfork.org/zh-CN/scripts/489366)\n\n\n## 生活随笔：平凡中的感悟\n\n本周的生活充满了平凡的点滴，却也蕴含着深刻的感悟：\n- **家人的健康**：姐姐和姐夫带爸爸去南昌检查身体，没有事；但是爸爸的手机被偷了，姐夫给买了一个。\n\n\n句子：\n每天有事情做，有稳定的收入来源，能吃上可口的饭菜，便已足够。\n小女孩看着英雄骑马，她无意成为万众瞩目的英雄，却只想做那个为英雄欢呼、献上鲜花的普通人。\n\n\n## 结语：一周的总结与展望\n\n本周的技术探索与项目管理让我收获颇丰，生活也在平凡中透露出温暖。未来，我将继续分享技术心得与生活感悟，期待与大家共同成长。\n\n",
+    "word_count": 0,
+    "content": "",
+    "href": "article.html?id=759fc7207786"
+  },
+  {
+    "id": "759fc7207786",
+    "title": "# 📘 🌛《周韵周刊》第50周 12.9-12.15",
+    "date": "2024-12-14",
+    "section": "📘",
+    "word_count": 830,
+    "content": "\n## 技术分享\n\n### 网页 Canvas 生成视频缩略图\n链接：47.121.112.184:8085\n介绍：选择视频，选择生成间隔，生成视频略缩图，方便浏览\n\n使用Canvas生成视频缩略图的优点在于：\n- **速度快**：无需依赖外部工具，直接在浏览器中实现。\n\n具体实现过程如下：\n- 使用HTML5的`<canvas>`元素，通过JavaScript操作视频帧，生成缩略图。\n- 代码示例：\n  ```html\n  <canvas id=\"thumbnail\"></canvas>\n  <video id=\"video\" src=\"example.mp4\"></video>\n  <script>\n    const canvas = document.getElementById('thumbnail');\n    const video = document.getElementById('video');\n    canvas.width = video.videoWidth;\n    canvas.height = video.videoHeight;\n    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);\n  </script>\n  ```\n\n### 直播视界\n链接：47.121.112.184:8086\n介绍：响应式，多平台（斗鱼、B站）直播间卡片展示：平台、标签分类，实时开播状态和封面，方便浏览，然后跳转\n\nUI AI 根据截图（小奶团官网）生成了界面，使用其他 AI 实现了功能\n\n### 斗鱼客服问题搜索、斗鱼钻石粉丝开通记录 HTML 界面\n使用之前用 Java，python 开发的斗鱼智能发弹幕工具 的一些爬取 json 数据\n\n斗鱼客服问题搜索\nhttps://github.com/ygr99/douyu-cs-question-search\nhttps://xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search\n\n斗鱼钻石粉丝开通记录\nhttps://github.com/ygr99/douyu-opening-diamond-fans-data\n\n### 其他\n* 优化了 liuda99.fun 界面内容、添加回来 heynote-blog 脚注（要不然都不想写笔记了）\n\n## 工作管理：项目的优化与民警交接\n\n主要完成了以下工作：\n- **优化样式与修复Bug**：通过调整CSS和修复代码中的问题，提升了用户体验。\n- **开发XX交接功能**：实现了XX交接管理模块。\n\n项目中的技术亮点：\n- 将搜索表单放到了弹出框\n\n## 资源推荐\n\n本周发现了一些实用的工具和平台，推荐给大家：\n1. **MasterGo**：AI时代的数字界面生产平台，适合UI/UX设计师。（非常牛逼）\n   - 官网：[MasterGo](https://mastergo.com/)\n2. **GitHub贡献图生成器**：Green Wall，帮助开发者展示GitHub贡献图。\n   - 链接：[Green Wall](https://green-wall.leoku.dev/)\n   - 链接：[Green Wall](https://green-wall.leoku.dev/)\n\n文本代码的作图工具，绘制线框图 [D2 Playground](https://play.d2lang.com/)\n\n\n油猴脚本：\n[【哔哩哔哩】屏蔽视频PCDN地址](https://greasyfork.org/zh-CN/scripts/500519)\n[【哔哩哔哩】修改选集列表框高度](https://greasyfork.org/zh-CN/scripts/489366)\n\n\n## 生活随笔：平凡中的感悟\n\n本周的生活充满了平凡的点滴，却也蕴含着深刻的感悟：\n- **家人的健康**：姐姐和姐夫带爸爸去南昌检查身体，没有事；但是爸爸的手机被偷了，姐夫给买了一个。\n\n\n句子：\n每天有事情做，有稳定的收入来源，能吃上可口的饭菜，便已足够。\n小女孩看着英雄骑马，她无意成为万众瞩目的英雄，却只想做那个为英雄欢呼、献上鲜花的普通人。\n\n\n## 结语：一周的总结与展望\n\n本周的技术探索与项目管理让我收获颇丰，生活也在平凡中透露出温暖。未来，我将继续分享技术心得与生活感悟，期待与大家共同成长。\n\n",
     "href": "article.html?id=759fc7207786"
   },
   {
@@ -1804,8 +1831,8 @@
     "title": "# 📘 heynote 标题里 emoji 的含义",
     "date": "2024-10-24",
     "section": "📘",
-    "word_count": 55,
-    "content": "📆 日记\n📘 页面\n🛶 周刊\n🌙 月刊\n🌀 uTools 快捷命令\n\n🧩（拼图）：可以象征知识点的拼凑和理解。\n🌃 \n🐧 linxu\n\n\n代码：\n🟥 HTML 代码\n🟦 CSS 代码\n🟨 JavaScript 代码\n🟧 Java 代码\n🐍 Python 代码\n⬜ \n⬛ 油猴代码\n\n\n\n",
+    "word_count": 59,
+    "content": "📆 日记\n📘 页面\n🛶 周刊\n🌙 月刊\n🛶 周刊\n🌙 月刊\n🌀 uTools 快捷命令\n\n🧩（拼图）：可以象征知识点的拼凑和理解。\n🌃 \n🐧 linxu\n\n\n\n代码：\n🟥 HTML 代码\n🟦 CSS 代码\n🟨 JavaScript 代码\n🟧 Java 代码\n🐍 Python 代码\n⬜ \n⬛ 油猴代码\n\n\n\n",
     "href": "article.html?id=458b0f8d3fe7"
   },
   {
@@ -2155,8 +2182,8 @@
     "title": "# 📘 ruoyi-vue 获取当前登录用户的 用户ID 和 部门ID",
     "date": "2024-09-27",
     "section": "📘",
-    "word_count": 8,
-    "content": "\nSecurityUtils.getUserId()\nSecurityUtils.getDeptId()\n\nLong userId = SecurityUtils.getUserId();\nLong deptId = SecurityUtils.getDeptId();\n",
+    "word_count": 11,
+    "content": "\nSecurityUtils.getUserId()\nSecurityUtils.getDeptId()\n\nLong userId = SecurityUtils.getUserId();\nLong userId = SecurityUtils.getUserId();\nLong deptId = SecurityUtils.getDeptId();\n",
     "href": "article.html?id=61b80e5353e1"
   },
   {
@@ -2371,6 +2398,15 @@
     "title": "# 📘 Heynote 1.8.0 快捷键",
     "date": "2024-09-01",
     "section": "📘",
+    "word_count": 0,
+    "content": "\n",
+    "href": "article.html?id=dbd226109d28"
+  },
+  {
+    "id": "dbd226109d28",
+    "title": "# 📘 Heynote 1.8.0 快捷键",
+    "date": "2024-09-01",
+    "section": "📘",
     "word_count": 212,
     "content": "\nCtrl + Enter：在当前块下方添加新块\nAlt + Enter：上方添加新块\nCtrl + Shift + Enter    在最后面添加新块\nAlt + Shift + Enter     在最前面添加新块\nCtrl + Alt + Enter     在光标位置拆分当前块\nCtrl + L：更改块的语言\nCtrl + Down：跳转到下一个块\nCtrl + Up：跳转到上一个块\nCtrl + A：选择当前块中的所有文本。再次按下选择整个缓冲区\nCtrl + Alt + Up/Down：在上方/下方添加额外光标\nAlt + Shift + F：格式化块的内容（适用于 JSON、JavaScript、HTML、CSS 和 Markdown）\n\nAlt：显示菜单 \nView 菜单\n重新加载：Ctrl+R；\n强制重新加载：Ctrl+Shift+R；\n切换开发者工具：Ctrl+Shift+l；\n实际大小：Ctrl+0；\n放大：Ctrl++；\n缩小：Ctrl+-；\n切换全屏模式：F11。\n",
     "href": "article.html?id=dbd226109d28"
@@ -2390,7 +2426,7 @@
     "date": "2024-09-01",
     "section": "📘",
     "word_count": 922,
-    "content": "\n1. **个人博客系统**\n   - 预览：[https://heynote.xn--4gqta1h0zg9yuu7a.fun](https://heynote.xn--4gqta1h0zg9yuu7a.fun) \n   - 描述：基于 HeyNote 笔记软件的 HTML 的博客，使用 Nodejs 解析笔记，支持 Markdown 格式的文章渲染。HeyNote 是一款重燃我记笔记热情的应用，通过博客系统实现了内容的解析和可视化展示\n   - 标签：博客\n   - 技术：HTML Node.js\n   - 时间：\n       - 开始：2024年09月\n\n2. **10条随机RSS**  \n   - 预览：[http://123.60.153.252:8082](http://123.60.153.252:8082)  \n   - 描述：一个简单的 RSS 订阅展示工具，随机展示 10 条 RSS 内容。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML Node.js  \n   - 时间：未提供  \n\n3. **视频略缩图**  \n   - 预览：[http://123.60.153.252:8085](http://123.60.153.252:8085)  \n   - 描述：生成视频略缩图的工具，支持在线预览。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n4. **弹幕管理系统**  \n   - 预览：[http://123.60.153.252:8084](http://123.60.153.252:8084)  \n   - 描述：用于管理弹幕和句子的系统，支持弹幕的增删改查。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n5. **直播视界**  \n   - 预览：[http://123.60.153.252:8086](http://123.60.153.252:8086)  \n   - 描述：一个直播相关的展示页面，支持直播内容的实时查看。  \n   - 标签：Web 开发  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n6. **斗鱼用户弹幕收集**  \n   - 预览：[http://123.60.153.252:8088](http://123.60.153.252:8088)  \n   - 描述：收集斗鱼直播间用户弹幕的工具，支持弹幕的实时展示和分析。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n7. **斗鱼APP扫码登录API**  \n   - 预览：[http://123.60.153.252:8094](http://123.60.153.252:8094)  \n   - 描述：提供斗鱼APP扫码登录后的在线 cookie API 服务。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n8. **斗鱼直播间弹幕收集：前端**  \n   - 预览：[http://111.229.103.146:8099](http://111.229.103.146:8099)  \n   - 描述：斗鱼直播间弹幕收集的前端页面，支持弹幕的实时展示和管理。  \n   - 标签：Web 开发  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n9. **弹幕生成器**  \n   - 预览：[http://123.60.153.252:8089](http://123.60.153.252:8089)  \n   - 描述：生成弹幕的工具，支持自定义弹幕内容和样式。  \n   - 标签：Web 开发、工具  \n   - 技术：HTML、Node.js  \n   - 时间：未提供  \n\n10. **斗鱼弹幕发送器**  \n    - 描述：基于 Java Swing 的弹幕发送工具，支持 AI 智能回复弹幕。  \n    - 标签：工具、Java  \n    - 技术：Java、Swing  \n    - 时间：未提供  \n\n11. **斗鱼直播间挂机**  \n    - 描述：基于 Java 的斗鱼直播间挂机工具，实现直播间自动挂机功能。  \n    - 标签：工具、Java  \n    - 技术：Java  \n    - 时间：未提供  \n\n12. **斗鱼客服问题搜索**  \n    - 预览：[https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search/index.html](https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search/index.html)  \n    - 描述：斗鱼客服问题搜索工具，支持快速查找客服相关问题。  \n    - 标签：工具  \n    - 技术：HTML  \n    - 时间：未提供  \n\n13. **斗鱼钻石粉丝开通记录**  \n    - 预览：[https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-opening-diamond-fans-data/index.html](https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-opening-diamond-fans-data/index.html)  \n    - 描述：记录斗鱼钻石粉丝开通数据的工具，支持数据展示和分析。  \n    - 标签：工具  \n    - 技术：HTML  \n    - 时间：未提供  \n\n\n",
+    "content": "\n1. **个人博客系统**\n\n    - 预览：[https://heynote.xn--4gqta1h0zg9yuu7a.fun](https://heynote.xn--4gqta1h0zg9yuu7a.fun)\n    - 描述：基于 HeyNote 笔记软件的 HTML 的博客，使用 Nodejs 解析笔记，支持 Markdown 格式的文章渲染。HeyNote 是一款重燃我记笔记热情的应用，通过博客系统实现了内容的解析和可视化展示\n    - 标签：博客\n    - 技术：HTML Node.js\n    - 时间：\n        - 开始：2024年09月\n\n2. **10条随机RSS**\n\n    - 预览：[http://123.60.153.252:8082](http://123.60.153.252:8082)\n    - 描述：一个简单的 RSS 订阅展示工具，随机展示 10 条 RSS 内容。\n    - 标签：Web 开发、工具\n    - 技术：HTML Node.js\n    - 时间：未提供\n\n3. **视频略缩图**\n\n    - 预览：[http://123.60.153.252:8085](http://123.60.153.252:8085)\n    - 描述：生成视频略缩图的工具，支持在线预览。\n    - 标签：Web 开发、工具\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n4. **弹幕管理系统**\n\n    - 预览：[http://123.60.153.252:8084](http://123.60.153.252:8084)\n    - 描述：用于管理弹幕和句子的系统，支持弹幕的增删改查。\n    - 标签：Web 开发、工具\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n5. **直播视界**\n\n    - 预览：[http://123.60.153.252:8086](http://123.60.153.252:8086)\n    - 描述：一个直播相关的展示页面，支持直播内容的实时查看。\n    - 标签：Web 开发\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n6. **斗鱼用户弹幕收集**\n\n    - 预览：[http://123.60.153.252:8088](http://123.60.153.252:8088)\n    - 描述：收集斗鱼直播间用户弹幕的工具，支持弹幕的实时展示和分析。\n    - 标签：Web 开发、工具\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n7. **斗鱼APP扫码登录API**\n\n    - 预览：[http://123.60.153.252:8094](http://123.60.153.252:8094)\n    - 描述：提供斗鱼APP扫码登录后的在线 cookie API 服务。\n    - 标签：Web 开发、工具\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n8. **斗鱼直播间弹幕收集：前端**\n\n    - 预览：[http://111.229.103.146:8099](http://111.229.103.146:8099)\n    - 描述：斗鱼直播间弹幕收集的前端页面，支持弹幕的实时展示和管理。\n    - 标签：Web 开发\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n9. **弹幕生成器**\n\n    - 预览：[http://123.60.153.252:8089](http://123.60.153.252:8089)\n    - 描述：生成弹幕的工具，支持自定义弹幕内容和样式。\n    - 标签：Web 开发、工具\n    - 技术：HTML、Node.js\n    - 时间：未提供\n\n10. **斗鱼弹幕发送器**\n\n    - 描述：基于 Java Swing 的弹幕发送工具，支持 AI 智能回复弹幕。\n    - 标签：工具、Java\n    - 技术：Java、Swing\n    - 时间：未提供\n\n11. **斗鱼直播间挂机**\n\n    - 描述：基于 Java 的斗鱼直播间挂机工具，实现直播间自动挂机功能。\n    - 标签：工具、Java\n    - 技术：Java\n    - 时间：未提供\n\n12. **斗鱼客服问题搜索**\n\n    - 预览：[https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search/index.html](https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-cs-question-search/index.html)\n    - 描述：斗鱼客服问题搜索工具，支持快速查找客服相关问题。\n    - 标签：工具\n    - 技术：HTML\n    - 时间：未提供\n\n13. **斗鱼钻石粉丝开通记录**\n    - 预览：[https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-opening-diamond-fans-data/index.html](https://html.xn--4gqta1h0zg9yuu7a.fun/douyu-opening-diamond-fans-data/index.html)\n    - 描述：记录斗鱼钻石粉丝开通数据的工具，支持数据展示和分析。\n    - 标签：工具\n    - 技术：HTML\n    - 时间：未提供\n\n",
     "href": "article.html?id=4f57340b0cb9"
   }
 ]

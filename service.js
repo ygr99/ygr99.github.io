@@ -187,7 +187,7 @@ function writeSentencesToJsonFile(sentences, filePath) {
 // 主函数
 async function main() {
   const bufferFilePath = path.join(
-    "D:",
+    "C:",
     "99",
     "document",
     "heynote",
