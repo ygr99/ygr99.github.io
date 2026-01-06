@@ -89,6 +89,18 @@ function getStartDate(selectedYear) {
     days = weeks * 7 - 1;
     const startDate = new Date(firstWeekStartDate);
     return startDate;
+  } else if (selectedYear === 2026) {
+    // 2026年的第一周从2025年12月29日开始
+    const firstDayOf2026 = new Date(2026, 0, 1);
+    const dayOfWeek = firstDayOf2026.getDay(); // 获取2026年1月1日是星期几
+    const firstWeekStartDate = new Date(firstDayOf2026);
+    firstWeekStartDate.setDate(
+      firstDayOf2026.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)
+    );
+    weeks = weekNumber;
+    days = weeks * 7 - 1;
+    const startDate = new Date(firstWeekStartDate);
+    return startDate;
   } else {
     weeks = weekNumber; // 其他年份从第1周开始
   }
