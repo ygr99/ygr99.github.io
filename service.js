@@ -19,6 +19,7 @@ function parseFileContent(content) {
   let currentBlock = null;
   let lastDate = null;
   const sentences = [];
+  const websiteLibrary = {};
 
   lines.forEach((line) => {
     if (line.startsWith("∞∞∞markdown")) {
@@ -157,7 +158,43 @@ function parseFileContent(content) {
     item.href = `article.html?id=${item.id}`; // 生成 href 字段
   });
 
-  return { parsedData: filteredResult, sentences };
+  // 提取网站库信息
+  filteredResult.forEach((block) => {
+    const content = block.content;
+    const blockLines = content.split("\n");
+    const websiteLines = blockLines.filter((line) => line.includes("#网站库"));
+
+    if (websiteLines.length > 0 && block.section === "📆") {
+      // 尝试获取日期的显示格式
+      let displayDate = block.title.replace("# 📆 ", "");
+
+      // 如果这个日期还没有添加到结果中，初始化一个空对象
+      if (!websiteLibrary[displayDate]) {
+        websiteLibrary[displayDate] = {};
+      }
+
+      // 添加每一行网站信息到对应日期
+      websiteLines.forEach((line) => {
+        // 清理行，移除标签
+        const cleanLine = line.replace(/#网站库/g, "").trim();
+
+        // 尝试解析网站名称和URL
+        const urlMatch = cleanLine.match(/(.+?)\s+(https?:\/\/\S+)/);
+        if (urlMatch) {
+          const [_, siteName, siteUrl] = urlMatch;
+          // 去掉网站名称前面的数字和点（如"3. "）
+          const cleanSiteName = siteName.trim().replace(/^\d+\.\s*/, '');
+          websiteLibrary[displayDate][cleanSiteName] = siteUrl.trim();
+        } else {
+          // 如果无法解析，则使用整行作为键，同样清理前缀数字
+          const cleanKey = cleanLine.replace(/^\d+\.\s*/, '');
+          websiteLibrary[displayDate][cleanKey] = cleanLine;
+        }
+      });
+    }
+  });
+
+  return { parsedData: filteredResult, sentences, websiteLibrary };
 }
 
 // 读取文件并解析
@@ -198,6 +235,18 @@ function writeSentencesToJsonFile(sentences, filePath) {
   });
 }
 
+// 覆盖 website-library.json 文件
+function writeWebsiteLibraryToJsonFile(websiteLibrary, filePath) {
+  const jsonData = JSON.stringify(websiteLibrary, null, 2);
+  fs.writeFile(filePath, jsonData, "utf8", (err) => {
+    if (err) {
+      console.error("Error writing to website-library.json:", err);
+    } else {
+      console.log("Data successfully written to website-library.json");
+    }
+  });
+}
+
 // 主函数
 async function main() {
   const bufferFilePath = path.join(
@@ -209,11 +258,13 @@ async function main() {
   );
   const dataFilePath = path.join(__dirname, "data.json");
   const sentenceFilePath = path.join(__dirname, "sentence.json");
+  const websiteLibraryFilePath = path.join(__dirname, "website-library.json");
 
   try {
-    const { parsedData, sentences } = await readAndParseFile(bufferFilePath);
+    const { parsedData, sentences, websiteLibrary } = await readAndParseFile(bufferFilePath);
     writeDataToJsonFile(parsedData, dataFilePath);
     writeSentencesToJsonFile(sentences, sentenceFilePath);
+    writeWebsiteLibraryToJsonFile(websiteLibrary, websiteLibraryFilePath);
   } catch (err) {
     console.error("Error processing file:", err);
   }
