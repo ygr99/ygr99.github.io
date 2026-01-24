@@ -33,6 +33,7 @@ function parseFileContent(content) {
         word_count: 0,
         content: "",
         href: "", // 添加 href 字段
+        isPrivate: false, // 添加私密模式标记
       };
     } else if (line.startsWith("∞∞∞")) {
       // 遇到其他类型的块（如 ∞∞∞css），结束当前的 markdown 块
@@ -52,12 +53,14 @@ function parseFileContent(content) {
             word_count: 0,
             content: "",
             href: "", // 添加 href 字段
+            isPrivate: false, // 添加私密模式标记
           };
         }
 
         currentBlock.title = line;
         currentBlock.date = parseDateFromTitle(line);
         currentBlock.section = line.includes("📆") ? "📆" : "📘";
+        currentBlock.isPrivate = false; // 重置私密模式
 
         // 如果是 # 📆 标题，更新 lastDate
         if (currentBlock.section === "📆" && currentBlock.date) {
@@ -68,7 +71,18 @@ function parseFileContent(content) {
         if (currentBlock.section === "📘" && !currentBlock.date) {
           currentBlock.date = lastDate;
         }
-      } else if (currentBlock.title) {
+      } else if (line.startsWith("##")) {
+        // 遇到任何二级标题，重置私密模式
+        currentBlock.isPrivate = false;
+        // 如果是私密标签，开启私密模式
+        if (line.startsWith("## 私密")) {
+          currentBlock.isPrivate = true;
+        } else {
+          // 其他二级标题，添加到内容中
+          currentBlock.content += line + "\n";
+        }
+      } else if (currentBlock.title && !currentBlock.isPrivate) {
+        // 只有当不在私密模式下时，才添加内容
         currentBlock.content += line + "\n";
       }
     }
