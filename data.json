@@ -1,11 +1,21 @@
 [
   {
+    "id": "212ce8f8c613",
+    "title": "# 📆 2026年01月26日 周一05周",
+    "date": "2026-01-26",
+    "section": "📆",
+    "word_count": 215,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n足球经理放置 - Idle Football Manager https://yx.g8hh.com/veprogames/idle-football-manager/ #网站库\n\nQQ2006 - 使用 HTML 复刻 QQ2006 https://lab.ur1.fun/QQ2006/ #网站库\n原帖子 https://www.52pojie.cn/forum.php?mod=viewthread&tid=2087154\n有人加了个智谱AI的key 能愉快聊天了\n\nDeepSeek 网页版远程调用本地MCP脚本) - 吾爱破解 - 52pojie.cn https://www.52pojie.cn/forum.php?mod=viewthread&tid=2087748\n\n【油猴脚本】AnMe - 通用多网站多账号切换器 - 吾爱破解 - 52pojie.cn https://www.52pojie.cn/forum.php?mod=viewthread&tid=2087984\n\n宜省闪传 - 极速 P2P 协作 https://chuan.diuta.com/ #网站库\n\nAgent Skills 市场 - Claude、Codex 和 ChatGPT Skills | SkillsMP https://skillsmp.com/zh #网站库\n\n\n\n### 📜文韵影律\n\n\n你心目中最伟大的十部小说是什么？ - 乌哭的回答 《公交诗晴》 - 知乎\nhttps://www.zhihu.com/question/21405569/answer/1985632462592819446\n\n\n不能拼命啊 拼命还怎么赚钱  #句子\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：08:39\n💤 04:30-07:50 -> 3小时 20分钟\n\n",
+    "href": "article.html?id=212ce8f8c613",
+    "isPrivate": false
+  },
+  {
     "id": "3f1a40f911bb",
     "title": "# 📆 2026年01月24日 周六04周",
     "date": "2026-01-24",
     "section": "📆",
-    "word_count": 314,
-    "content": "## 🚩事项\n- [x] 把 之前 99记事本 的笔记 加到 Heynote 笔记 里面\n\n- [x] ygr99.github.io heynote 博客 解析 heynote 日记里面加上隐私标签，里面的内容不解析\n    - feat: 添加私密模式支持\n        heynote 日记中的私密内容（即 ## 私密 标签下的内容）将不会被解析到博客数据中 \n\n\n- [x] heynote 博客 feat(解析器): 添加网站库信息提取功能\n    - 移植99记事本的功能，从内容中提取网站库信息，将网站信息按日期分类存储，并生成website-library.json文件\n\n- [x] 99起始页 将 网站库 请求URL从 http://8.129.83.45:9000/api/website-library 改为 https://xn--4gqta1h0zg9yuu7a.fun/website-library.json\n\n\n## 杂记\n### 💻网韵技径\n\nNot By AI — 为你的非AI创作贴上这个贴纸吧！: https://notbyai.fyi/cn/\n```html\n<div class=\"wp-block-group is-vertical is-content-justification-center is-nowrap is-layout-flex wp-container-core-group-is-layout-b77dfac5 wp-block-group-is-layout-flex\">\n<figure class=\"wp-block-image aligncenter size-large is-resized has-custom-border wp-duotone-unset-3\"><a href=\"https://notbyai.fyi/\" target=\"_blank\"><img width=\"500\" height=\"160\" src=\"https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=500\" alt=\"\"\n            class=\"has-border-color has-primary-border-color wp-image-11373\" style=\"border-width:2px;border-top-right-radius:15px;border-bottom-left-radius:15px;object-fit:cover;width:100px;height:35px\"\n            srcset=\"https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg 500w, https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=150 150w, https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=300 300w\"\n            sizes=\"(max-width: 500px) 100vw, 500px\"></a></figure>\n```\n\n\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n## 🕛时间\n记录时间：10:04\n💤 03:00-07:50\n\n10:10 又用下 heynote 本地记笔记 \n",
+    "word_count": 330,
+    "content": "## 🚩事项\n- [x] 把 之前 99记事本 的笔记 加到 Heynote 笔记 里面\n\n- [x] ygr99.github.io heynote 博客 解析 heynote 日记里面加上隐私标签，里面的内容不解析\n    - feat: 添加私密模式支持\n        heynote 日记中的私密内容（即 ## 私密 标签下的内容）将不会被解析到博客数据中 \n\n\n- [x] heynote 博客 feat(解析器): 添加网站库信息提取功能\n    - 移植99记事本的功能，从内容中提取网站库信息，将网站信息按日期分类存储，并生成website-library.json文件\n\n- [x] 99起始页 将 网站库 请求URL从 http://8.129.83.45:9000/api/website-library 改为 https://xn--4gqta1h0zg9yuu7a.fun/website-library.json\n\n\n## 杂记\n### 💻网韵技径\n\nNot By AI — 为你的非AI创作贴上这个贴纸吧！: https://notbyai.fyi/cn/\n```html\n<div class=\"wp-block-group is-vertical is-content-justification-center is-nowrap is-layout-flex wp-container-core-group-is-layout-b77dfac5 wp-block-group-is-layout-flex\">\n<figure class=\"wp-block-image aligncenter size-large is-resized has-custom-border wp-duotone-unset-3\"><a href=\"https://notbyai.fyi/\" target=\"_blank\"><img width=\"500\" height=\"160\" src=\"https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=500\" alt=\"\"\n            class=\"has-border-color has-primary-border-color wp-image-11373\" style=\"border-width:2px;border-top-right-radius:15px;border-bottom-left-radius:15px;object-fit:cover;width:100px;height:35px\"\n            srcset=\"https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg 500w, https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=150 150w, https://onojyun.com/wp-content/uploads/2024/03/written-by-human-not-by-ai-badge-black.jpg?w=300 300w\"\n            sizes=\"(max-width: 500px) 100vw, 500px\"></a></figure>\n```\n\n\n在线微信对话生成器 - 生成器 https://zixiwangluo.github.io/wxdh/ #网站库\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n## 🕛时间\n记录时间：10:04\n💤 03:00-07:50\n\n10:10 又用下 heynote 本地记笔记 \n",
     "href": "article.html?id=3f1a40f911bb",
     "isPrivate": false
   },
@@ -904,8 +914,8 @@
     "title": "# 📆 2025年06月19日 周四25周",
     "date": "2025-06-19",
     "section": "📆",
-    "word_count": 435,
-    "content": "## 事项\n- [x] 99日记 新增 设置功能 添加日记模板功能，添加模板和内容，默认使用模板\n- [x] 99日记 新增 字体设置、字体大小功能\n- [x] 99日记 优化 Home 和 End 键位功能：视觉行\n- [x] 99日记 优化 /api/website-library API\n    当遇到类似 \"3. 测试 https://www.baidu.com #网站库\" 这样的内容时，API 会去掉前面的数字和点，返回的结果将是：测试 https://www.baidu.com\n- [x] 99日记 新增 链接新标签页点击打开功能\n- [x] uTools 快捷命令脚本 Markdown 转 HTML 优化：通过创建本地 HTTP 服务器并在浏览器中打开预览，并且加上左侧目录渲染\n\n## 杂记\n\n1. ip 天气数据卡片\nhttps://i.tianqi.com/?c=code&a=getcode&id=85&icon=1\n\n2. 做梦了，梦懵了！\n梦里的场景像被岁月浸过的老胶片，每一帧都带着温润的质感——指尖触到的藤蔓带着晨露的冰凉，远处钟楼的铜铃声震得空气发颤，甚至连擦肩而过的陌生人衣角上的暗纹，都清晰得如同刻在视网膜上。当意识从梦境的深潭里浮上来时，指尖还残留着虚空中攥住的微凉，目光扫过熟悉的天花板，却有半分恍惚悬在现实与幻梦的交界处，仿佛灵魂还在那片真实得令人心悸的风景里迟迟不肯归位。\n\n3. LumenIM: Lumen IM 是一个网页版在线聊天项目，前端使用 Naive UI + Vue3，后端采用 GO 开发\nhttps://github.com/gzydong/LumenIM\n\n4. 花了一年空闲时间打磨了一款IM https://learnku.com/articles/90111\n\n## 时间\n20:00-07:15 💤\n\n",
+    "word_count": 432,
+    "content": "## 事项\n- [x] 99日记 新增 设置功能 添加日记模板功能，添加模板和内容，默认使用模板\n- [x] 99日记 新增 字体设置、字体大小功能\n- [x] 99日记 优化 Home 和 End 键位功能：视觉行\n- [x] 99日记 优化 /api/website-library API\n    当遇到类似 \"3. 测试 https://www.baidu.com\" 这样的内容时，API 会去掉前面的数字和点，返回的结果将是：测试 https://www.baidu.com\n- [x] 99日记 新增 链接新标签页点击打开功能\n- [x] uTools 快捷命令脚本 Markdown 转 HTML 优化：通过创建本地 HTTP 服务器并在浏览器中打开预览，并且加上左侧目录渲染\n\n## 杂记\n\n1. ip 天气数据卡片\nhttps://i.tianqi.com/?c=code&a=getcode&id=85&icon=1\n\n2. 做梦了，梦懵了！\n梦里的场景像被岁月浸过的老胶片，每一帧都带着温润的质感——指尖触到的藤蔓带着晨露的冰凉，远处钟楼的铜铃声震得空气发颤，甚至连擦肩而过的陌生人衣角上的暗纹，都清晰得如同刻在视网膜上。当意识从梦境的深潭里浮上来时，指尖还残留着虚空中攥住的微凉，目光扫过熟悉的天花板，却有半分恍惚悬在现实与幻梦的交界处，仿佛灵魂还在那片真实得令人心悸的风景里迟迟不肯归位。\n\n3. LumenIM: Lumen IM 是一个网页版在线聊天项目，前端使用 Naive UI + Vue3，后端采用 GO 开发\nhttps://github.com/gzydong/LumenIM\n\n4. 花了一年空闲时间打磨了一款IM https://learnku.com/articles/90111\n\n## 时间\n20:00-07:15 💤\n\n",
     "href": "article.html?id=f101fffae97d",
     "isPrivate": false
   },
