@@ -1,5 +1,35 @@
 [
   {
+    "id": "4c61c3a3ee05",
+    "title": "# 📆 2026年01月27日 周二05周",
+    "date": "2026-01-27",
+    "section": "📆",
+    "word_count": 180,
+    "content": "## 🚩事项\n- [ ] 手机空间要整理下了 快满了\n\n\n## 杂记\n### 💻网韵技径\n\nCodeBuddy 焕新年，免费白嫖 3 月轻量服务器 - lcry https://www.51it.wang/ll/2150\n\n清浊 清理工具\n\nhexo配置追番页面 — Node.js 22 | Wenjie Wang https://wenjiew-astro.github.io/2025/09/01/hexo%E9%85%8D%E7%BD%AE%E8%BF%BD%E7%95%AA%E9%A1%B5%E9%9D%A2%20%E2%80%94%20Node.js%2022/index.html\n\n\n\n### 📜文韵影律\n\n我在 5：20 睡觉，13：14 准时起，主打个浪漫沉溺在爱河不上岸\n我在3：30睡觉，7：30准时起，主打个摸鱼摆烂在工位不上进\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：08:34\n💤 20:30-23:30 05:30-07:50 -> 5小时 20分钟\n\n\n",
+    "href": "article.html?id=4c61c3a3ee05",
+    "isPrivate": false
+  },
+  {
+    "id": "991f44c36e39",
+    "title": "# 📘 书影音游",
+    "date": "2026-01-27",
+    "section": "📘",
+    "word_count": 90,
+    "content": "\n## 书\n\n* 第一本书\n    * 日期：2026-01\n    * 封面：https://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/PixPin_2026-01-14_14-04-17.png\n\n## 影\n\n* 第一部影\n    * 日期：2026-01\n    * 封面：https://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/PixPin_2026-01-14_14-04-17.png\n\n## 音\n\n* 第一首音乐\n    * 日期：2026-01\n    * 封面：https://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/PixPin_2026-01-14_14-04-17.png\n \n## 游\n\n* 第一个游戏\n    * 日期：2026-01\n    * 封面：https://ygr99.oss-cn-shenzhen.aliyuncs.com/utools/PixPin_2026-01-14_14-04-17.png\n",
+    "href": "article.html?id=991f44c36e39",
+    "isPrivate": false
+  },
+  {
+    "id": "715f01efa06a",
+    "title": "# 📘 Swagger 排除指定Controller/接口 快速方案",
+    "date": "2026-01-27",
+    "section": "📘",
+    "word_count": 113,
+    "content": "\n## 核心方案：使用内置@ApiIgnore注解\n- 无需修改SwaggerConfig配置，开箱即用\n- 标注在类上，排除整个Controller；标注在方法上，排除单个接口\n- 注解包路径：`io.swagger.annotations.ApiIgnore`\n\n## 用法示例\n### 排除整个Controller\n```java\n@ApiIgnore\n@RestController\n@RequestMapping(\"/nongye/demo\")\npublic class DemoController {\n    // 所有接口均不被Swagger扫描\n}\n```\n\n### 排除单个接口\n```java\n@RestController\n@RequestMapping(\"/nongye/demo\")\npublic class DemoController {\n    @GetMapping(\"/show\")\n    public String show() {return \"正常扫描\";}\n\n    @ApiIgnore\n    @GetMapping(\"/hide\")\n    public String hide() {return \"不被扫描\";}\n}\n```\n",
+    "href": "article.html?id=715f01efa06a",
+    "isPrivate": false
+  },
+  {
     "id": "212ce8f8c613",
     "title": "# 📆 2026年01月26日 周一05周",
     "date": "2026-01-26",
