@@ -1,5 +1,55 @@
 [
   {
+    "id": "c6a28041eba4",
+    "title": "# 📆 2026年02月07日 周六06周",
+    "date": "2026-02-07",
+    "section": "📆",
+    "word_count": 25,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：11:10\n💤 \n",
+    "href": "article.html?id=c6a28041eba4",
+    "isPrivate": false
+  },
+  {
+    "id": "2574857dcf23",
+    "title": "# 📆 2026年02月06日 周五06周",
+    "date": "2026-02-06",
+    "section": "📆",
+    "word_count": 76,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n这个 GitHub 项目牛逼！在手机上用 Claude Code 或 Codex https://zhuanlan.zhihu.com/p/1997779287428863492\n\n\n\n### 🩵情韵心语\n\n## 🕛时间\n记录时间：14:45\n💤 21:30-23:50 04:40-07:50 -> 5小时 30分钟\n\nslopus/happy: Mobile and Web client for Codex and Claude Code, with realtime voice, encryption and fully featured https://github.com/slopus/happy?tab=readme-ov-file\n\n\n",
+    "href": "article.html?id=2574857dcf23",
+    "isPrivate": false
+  },
+  {
+    "id": "c33d4e379999",
+    "title": "# 📘 用复式记账思维过人生",
+    "date": "2026-02-06",
+    "section": "📘",
+    "word_count": 238,
+    "content": "\n> 本文为 AI 生成内容\n\n核心：花钱不是做减法，而是把现金转换成资产/体验，人生持续做加法。\n\n## 普通收支视角\n只看现金增减，花出去即亏损，易陷入“花钱心疼”的负面感受。\n- 花100元买书 → 现金-100元，仅感知钱变少。\n\n## 复式记账/资产化视角\n每一笔消费都是形式转换，现金减少的同时，对应资产/体验增加。\n- 花100元买书 → 现金-100元，知识资产+100元\n- 花200元吃美食 → 现金-200元，体验资产+200元\n- 花1000元报课 → 现金-1000元，能力资产+1000元\n- 花500元买舒适好物 → 现金-500元，生活资产+500元\n\n## 实操原则\n只规避无意义消费：花出去后既无资产留存，也无正向体验的支出，才是真正的消耗。\n",
+    "href": "article.html?id=c33d4e379999",
+    "isPrivate": false
+  },
+  {
+    "id": "a934bcb50af9",
+    "title": "# 📘 提示词重复：大模型准确率飙升的「免费午餐」",
+    "date": "2026-02-06",
+    "section": "📘",
+    "word_count": 368,
+    "content": "\n谷歌 Gemini 准确率从 21% 提升至 97% 仅靠「复制粘贴」，这意味着什么？ - 知乎\nhttps://www.zhihu.com/question/1996233131175462349\n\n## 核心发现\n- 非推理任务中，重复输入提示词（将`<QUERY>`改为`<QUERY><QUERY>`），可显著提升主流LLM准确率。\n- Gemini 2.0 Flash-Lite在NameIndex任务中，准确率从21.33%跃升至97.33%，提升超76个百分点。\n- 70组测试中，该技巧47次获胜且0失利，适用于Gemini、GPT-4o、Claude、Deepseek等模型。\n\n## 关键优势\n- 零额外成本：不增加生成 tokens 数量，基本不影响响应延迟（Anthropic长请求除外）。\n- 适配性强：输出格式与原提示词一致，可直接部署于现有系统。\n- 操作极简：无需复杂提示工程，仅需复制粘贴重复输入。\n\n## 适用与局限\n- 适用场景：非推理任务（如信息提取、匹配查询），多选题「选项优先」格式提升更明显。\n- 局限：推理任务（分步思考）中效果中性至轻微正面，仅5胜1负22平。\n\n## 未来方向\n- 探索多轮重复（如3次重复）、部分提示词重复等变体效果。\n- 结合模型微调、KV缓存优化，进一步提升效率。\n- 拓展至多模态场景（如图像任务）的适用性。\n",
+    "href": "article.html?id=a934bcb50af9",
+    "isPrivate": false
+  },
+  {
+    "id": "d9970400a729",
+    "title": "# 📆 2026年02月05日 周四06周",
+    "date": "2026-02-05",
+    "section": "📆",
+    "word_count": 61,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n2026 年 1 月书影音总结 | 查令十字街 84 号 https://www.javis.me/2026-01/\n《大唐辟珠记》\n\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：09:06\n💤 03:00-07:50 -> 4小时 50分钟\n\n",
+    "href": "article.html?id=d9970400a729",
+    "isPrivate": false
+  },
+  {
     "id": "e43b5ed687b0",
     "title": "# 📆 2026年02月04日 周三06周",
     "date": "2026-02-04",
