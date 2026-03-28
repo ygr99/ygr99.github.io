@@ -1,5 +1,75 @@
 [
   {
+    "id": "c58a14dc4408",
+    "title": "# 📆 2026年03月28日 周六13周",
+    "date": "2026-03-28",
+    "section": "📆",
+    "word_count": 161,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n我开发了一个随机看 coser 妹子图集的网站  \n直接上链接 https://cosplay.cyou/\n数据来源是 tg 的图床\n每天看看美女有利于身心健康\n因为数据量比较大，数据我也没有完全过滤一遍，可能有些图集是漏点的，在办公室点开要慎重\n\nripgrep：AI 智能体极速搜索工具 - Openclaw Skills https://www.toolify.ai/zh/openclaw-skills/ripgrep-1812\n\n这个 web-access Skill 太硬核了，刚开源就斩获 1.8K 星标！Agent 联网能力拉满！-技术派 https://paicoding.com/article/detail/2608700040108033\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：08:42\n💤 \n",
+    "href": "article.html?id=c58a14dc4408",
+    "isPrivate": false
+  },
+  {
+    "id": "096635e1b5ce",
+    "title": "# 📆 2026年03月27日 周五13周",
+    "date": "2026-03-27",
+    "section": "📆",
+    "word_count": 26,
+    "content": "\n## 🚩事项\n- [ ] parallax\n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：10:09\n💤 \n\n\n",
+    "href": "article.html?id=096635e1b5ce",
+    "isPrivate": false
+  },
+  {
+    "id": "3ab53286107a",
+    "title": "# 📘 Windows Terminal 配置 shift+enter 软回车",
+    "date": "2026-03-27",
+    "section": "📘",
+    "word_count": 223,
+    "content": "\n> 适用于 Qwen Code、Claude Code、OpenCode、Codex 等 AI CLI 工具\n\n## 核心配置\n\n### 1. actions 配置\n\n```json\n\"actions\": [\n    {\n        \"command\": {\n            \"action\": \"sendInput\",\n            \"input\": \"\\u001b[200~\\n\\u001b[201~\"\n        },\n        \"id\": \"User.sendInput.FE9C254\"\n    }\n]\n```\n\n### 2. keybindings 配置\n\n```json\n\"keybindings\": [\n    {\n        \"id\": \"User.sendInput.FE9C254\",\n        \"keys\": \"shift+enter\"\n    }\n]\n```\n\n## 配置文件位置\n\n```\nC:\\Users\\99\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json\n```\n\n## 快速设置步骤\n\n1. **打开 Windows Terminal 设置**\n   - 按 `Ctrl + ,` 或点击下拉箭头 → 设置\n\n2. **打开 JSON 配置文件**\n   - 点击左下角\"打开 JSON 文件\"\n\n3. **添加/修改两处配置**\n   - 在 `actions` 数组中添加上面的 action\n   - 在 `keybindings` 数组中添加上面的 keybinding\n\n4. **保存** - 自动生效\n\n## 原理说明\n\n| 字符 | 含义 |\n|------|------|\n| `\\u001b[200~` | 粘贴模式开始 |\n| `\\n` | 换行符 |\n| `\\u001b[201~` | 粘贴模式结束 |\n\n**作用**：让 CLI 程序把换行符当作\"插入文本\"而非\"执行命令\"\n\n## 效果\n\n| 操作 | 结果 |\n|------|------|\n| `Enter` | 发送命令 |\n| `Shift + Enter` | 换行（软回车） |\n\n",
+    "href": "article.html?id=3ab53286107a",
+    "isPrivate": false
+  },
+  {
+    "id": "b808aad85643",
+    "title": "# 📆 2026年03月26日 周四13周",
+    "date": "2026-03-26",
+    "section": "📆",
+    "word_count": 25,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：16:03\n💤 \n",
+    "href": "article.html?id=b808aad85643",
+    "isPrivate": false
+  },
+  {
+    "id": "a88106027d79",
+    "title": "# 📘 WeClaw 配置 Qwen Code 指南",
+    "date": "2026-03-26",
+    "section": "📘",
+    "word_count": 222,
+    "content": "\n    1. 安装 Qwen Code CLI\n\n     1 npm install -g @qwen-code/qwen-code\n\n    验证安装：\n\n     1 qwen --version\n\n    ---\n\n    2. 编辑配置文件\n\n    打开 ~/.weclaw/config.json（Windows: C:\\Users\\你的用户名\\.weclaw\\config.json）\n\n    添加 Qwen Agent 配置：\n\n      1 {\n      2   \"default_agent\": \"qwen\",\n      3   \"agents\": {\n      4     \"qwen\": {\n      5       \"type\": \"acp\",\n      6       \"command\": \"qwen\",\n      7       \"args\": [\"--acp\"],\n      8       \"aliases\": [\"qw\", \"q\"]\n      9     }\n     10   }\n     11 }\n\n    ---\n\n    3. 重启 WeClaw\n\n     1 weclaw stop\n     2 weclaw start\n\n    首次运行会弹出微信扫码登录。\n\n    ---\n\n    4. 微信中使用\n\n    发送以下消息：\n\n\n    ┌────────────────────┬────────────────┐\n    │ 命令               │ 说明           │\n    ├────────────────────┼────────────────┤\n    │ /qwen 写个快速排序 │ 调用 Qwen Code │\n    │ /qw 解释这段代码   │ 快捷别名       │\n    │ /q 修复这个 bug    │ 最短别名       │\n    └────────────────────┴────────────────┘\n\n    ---\n\n    配置说明\n\n     1 {\n     2   \"type\": \"acp\",           // ACP 模式，进程复用，响应快\n     3   \"command\": \"qwen\",       // Qwen CLI 命令\n     4   \"args\": [\"--acp\"],       // 启动 ACP 协议\n     5   \"aliases\": [\"qw\", \"q\"]   // 快捷命令别名\n     6 }\n\n    ---\n\n    常见问题\n\n    二维码不弹出：删除 ~/.weclaw/accounts/* 后重启\n\n    Qwen 无响应：运行 qwen --version 验证安装\n\n    查看日志：~/.weclaw/weclaw.log\n\n",
+    "href": "article.html?id=a88106027d79",
+    "isPrivate": false
+  },
+  {
+    "id": "8c209e34a50f",
+    "title": "# 📆 2026年03月24日 周二13周",
+    "date": "2026-03-24",
+    "section": "📆",
+    "word_count": 125,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n免费视频下载_哔哩哔哩B站视频下载_抖音无水印视频下载_YouTube油管视频下载-GreenVideo视频下载 https://greenvideo.cc/\n\n照片一键拍立得 http://8.156.80.168:3000//pailide/examples/vintage.html\n\n\n### 📜文韵影律\n\n好吧，我就是这样随波逐流，鸡立鹤群，与众相同，众人皆醉我更是喝大了，出淤泥而全染，扮猪吃饲料的人。  #句子\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：11:14\n💤 \n",
+    "href": "article.html?id=8c209e34a50f",
+    "isPrivate": false
+  },
+  {
+    "id": "1ec3e3c62374",
+    "title": "# 📆 2026年03月23日 周一13周",
+    "date": "2026-03-23",
+    "section": "📆",
+    "word_count": 35,
+    "content": "## 🚩事项\n- [ ] \n\n\n## 杂记\n### 💻网韵技径\n\n\n### 📜文韵影律\n\n\n### 🩵情韵心语\n\n\n## 🕛时间\n记录时间：09:06\n\n💤 04:20-07:50 -> 3小时 30分钟\n\n\n",
+    "href": "article.html?id=1ec3e3c62374",
+    "isPrivate": false
+  },
+  {
     "id": "a893ed85bb27",
     "title": "# 📆 2026年03月21日 周六12周",
     "date": "2026-03-21",
